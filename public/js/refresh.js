@@ -30,3 +30,15 @@ $(document).on("click", "#addActivityButton", function(e) {
             });
         }                
 });
+
+$(document).on("click", "#addActivityButton", function(e) { 
+        var friendName = $('#add-friend-form #friendName').val();
+        if(friendName.length > 0) { 
+            var json = {
+                'username': username
+            };
+            $.post('/friend/add', json, function() {
+                window.location.href = '/'; // reload the page
+            });
+        }                
+});

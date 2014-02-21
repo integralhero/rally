@@ -1,13 +1,8 @@
 <% layout('layout') -%>
-<div class="col-xs-12">
-	<h1><%=friend.username%>'s Activities!</h1>
-	<br>
-	<div class="all-activities">
-	<% for (var i = 0; i<friend.activities.length; i++) { %>
-		<div class="activity">
-			<h3 class="activityColor"><%=friend.activities[i].title%></h3>
-			<p>I remember when <%=friend[i].username %> and I used to hang out everyday! </p>
-			<%= img_tag(friend.activities[i].image) %>
-		</div><br><br>
-	<% } %>
+<class="row-fluid">
+	<div class="col-xs-12">
+		<img width="300px" height="auto" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/t1/29604_559855414028037_1472903552_n.jpg">
+		<h1>Your buddy: <%=friend.username%></h1>
+		<h3><%=friend.username%> is currently doing <%= friend.rallies.length %> activities. Maybe you should join him!</h3>
+	</div>
 </div>

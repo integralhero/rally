@@ -306,7 +306,21 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+app.get('/activity/:id', function(req, res) {
+  var activityID = req.params.id;
+  Activity.find({_id: activityID}, function(err, result){
+    var activity = result[0];
+    res.render('specificActivity', {user: req.user, activity: activity});
+  });
+});
 
+app.get('/user/:id', function(req, res) {
+  var userID = req.params.id;
+  User.find({_id: userID}, function(err, result){
+    var friend = result[0];
+    res.render('specificFriend', {user: req.user, friend: friend});
+  });
+});
 
 app.get('/logout', function(req, res){
   req.logout();

@@ -5,7 +5,7 @@
 	<div class="all-activities">
 	<% for (var i = 0; i<userFriends.length; i++) { %>
 		<div class="activity friendsColor">
-			<h3><%=userFriends[i].username%></h3>
+			<h3><a href="/user/<%= userFriends[i]._id%>"><%=userFriends[i].username%></a></h3>
 		</div>	
 	<% } %>
 </div>

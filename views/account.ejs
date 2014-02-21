@@ -5,7 +5,7 @@
 <section>
 <% for(var i=0; i<userRallies.length; i++) {%>
 	<div class="activityProf">
-   			<h3 class=activityColor><%= userRallies[i].title %></h3>			
+   			<h3 class=activityColor><a href="/activity/<%= userRallies[i]._id%>"><%= userRallies[i].title %></a></h3>			
    			<div class="description">
    			<p>Location: Your house<br>
    			Time: Any time ;)</p>
@@ -17,7 +17,7 @@
 <section>
 <% for(var i=0; i<joined.length; i++) {%>
 	<div class="activityProf">
-   			<h3 class=activityColor><%= joined[i].title %></h3>			
+   			<h3 class=activityColor><a href="/activity/<%= joined[i]._id%>"><%= joined[i].title %></a></h3>			
    			<div class="description">
    			<p>Location: Your house<br>
    			Time: Any time ;)</p>

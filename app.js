@@ -4,6 +4,7 @@ var express = require('express')
   , mongodb = require('mongodb')
   , mongoose = require('mongoose')
   , bcrypt = require('bcrypt')
+  , http = require('http')
   , SALT_WORK_FACTOR = 10;
   
 
@@ -116,6 +117,7 @@ var app = express();
 // configure Express
 app.configure(function() {
   app.set('views', __dirname + '/views');
+  app.set('port', process.env.PORT || 3000);
   app.set('view engine', 'ejs');
   app.engine('ejs', require('ejs-locals'));
   app.use(express.logger());
@@ -245,12 +247,15 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-
+//app.listen(process.env.PORT || 3000);
+/*
 app.listen(3000, function() {
   console.log('Express server listening on port 3000');
 });
-
-
+*/
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
 //   the request is authenticated (typically via a persistent login session),

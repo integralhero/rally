@@ -1,0 +1,74 @@
+<% layout('layout') -%>
+<% if (!user) { %>
+	<h2>Welcome! Please log in.</h2>
+<% } else { %>
+	<h2>Hello, <%= user.username %>.</h2>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- Button trigger modal -->
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+				  Add an activity
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">Add Activity</h4>
+				      </div>
+				      <div class="modal-body">
+				        <form id="activityForm">
+				        	Activity Name: <input type="text" id="activityName">
+				        	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        	<button type="button" id="addActivityButton" class="btn btn-primary">Add Activity</button>
+				      </div>
+				        </form>
+				      </div>
+				      
+				    </div>
+				  </div>
+				</div><!-- End Modal -->
+				<!-- Button trigger modal -->
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#friendModal">
+				  Add a Friend
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">Add Friend</h4>
+				      </div>
+				      <div class="modal-body">
+				      	What's your friend's name?<BR>
+				        <form>
+				        	Name: <input type="text" id="activityName">
+				        	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        	<button type="button" id="addFriendButton" class="btn btn-primary">Add Friend</button>
+				      </div>
+				        </form>
+				      </div>
+				      
+				    </div>
+				  </div>
+				</div><!-- End Modal -->
+			</div><!-- End Col -->
+			<div class="col-xs-12">
+				<BR>
+				<% if(userRallies.length == 0) { %>
+					<p>Oops, looks like you aren't following any activities. You should add some right now!</p>
+				<% } %>
+				<% for(var i=0; i<userRallies.length; i++) {%>
+				   <h3><%= userRallies[i].title %></h3>
+				<% } %> <!--end of for loop-->
+			</div>
+		</div><!-- End Row -->
+	</div> <!-- End Container -->
+<% } %>

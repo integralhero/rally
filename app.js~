@@ -7,7 +7,7 @@ var express = require('express')
   , SALT_WORK_FACTOR = 10;
   
 
-var local_database_name = 'rallynow';
+var local_database_name = 'lab7';
 var local_database_uri  = 'mongodb://localhost/' + local_database_name
 var database_uri = process.env.MONGOLAB_URI || local_database_uri
 mongoose.connect(database_uri);

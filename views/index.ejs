@@ -2,11 +2,12 @@
 <% if (!user) { %>
 	<h2>Welcome! Please log in.</h2>
 <% } else { %>
-	<h2>Hello, <%= user.username %>.</h2>
 	<div class="container-fluid">
+		<h2>Hello, <%= user.username %>.</h2>
 		<div class="row">
 			<div class="col-xs-12">
 				<!-- Button trigger modal -->
+				<div class="btn-group btn-group-sm">
 				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 				  Add an activity  <i class="fa fa-plus fa-1x" ></i>
 				</button>
@@ -33,7 +34,7 @@
 				  </div>
 				</div><!-- End Modal -->
 				<!-- Button trigger modal -->
-				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#friendModal">
+				<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#friendModal">
 				  Add a Friend  <i class="fa fa-plus fa-1x" ></i>
 				</button>
 
@@ -54,6 +55,7 @@
 				        	<button type="button" id="addFriendButton" class="btn btn-primary">Add Friend</button>
 				      </div>
 				        </form>
+				      </div>
 				      </div>
 				      
 				    </div>

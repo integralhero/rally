@@ -1,8 +1,152 @@
 body {
   padding-top: 60px;
+  background-color: rgba(133, 133, 133, 0.05);
 }
 @media (max-width: 979px) {
   body {
     padding-top: 40px;
   }
+}
+
+
+
+.brand{
+    float: left;
+    padding-top: 5px;
+    background-color: white;
+    height: 30px;
+    font-size: 20px;
+    font-weight: lighter;
+	padding-left: 10px;
+}
+
+.log {
+	float: right;
+	padding-right: 10px;
+}
+
+.active{
+	border-bottom: 5px solid white;
+}
+
+#profilenav {
+	background-color: #f1c40f;
+}
+
+#homenav {
+	background-color: #1abc9c;
+}
+
+#friendsnav {
+	background-color: #e74c3c;
+}
+
+#profilenav, #friendsnav, #homenav {
+	text-align: center;
+	color: white;
+	display: block;
+	float: left;
+	width: 33.33333333%;
+	height: 50px;
+	padding-top: 10px;
+}
+
+#profilenav:hover, #friendsnav:hover, #homenav:hover {
+	opacity:0.85;
+	filter:alpha(opacity=85); /* For IE8 and earlier */
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#plus:hover {
+    color: #8e44ad;
+}
+
+
+.activity {
+	width: auto;
+	border-radius: 2px;
+	background-color: white;
+	text-align: left;
+}
+
+.all-activities {
+	margin-bottom: 60px;
+	padding-bottom: 60px;
+}
+
+
+.description {
+	float:left;
+	position: absolute;
+	text-align: left;
+	font-weight: lighter;
+}
+
+.friendSmall {
+	width: 75px;
+	height: 100px;
+}
+
+.img {
+	float: left;
+	border-radius: 5px;
+}
+
+.img-wrap{
+	height:200px;
+	width:60%;
+	margin: auto;
+	border-left: 10px solid green;
+	padding-left: 30px;
+	position: relative;
+	display: block;
+}
+
+.img-wrap:hover .img-overlay{
+	opacity:0.75;
+	filter: alpha(opacity = 75);
+	transition:opacity 0.25s;
+	-moz-transition:opacity 0.25s;
+	-webkit-transition:opacity 0.25s;
+}
+
+.activity:hover {
+	opacity: 0.75;
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 100ms;
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 100ms;
+}
+#addFriend:hover {
+    opacity: .5;
+    -webkit-transform: scale(1.1,1.1);
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 100ms;
+    -moz-transform: scale(1.1,1.1);
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 100ms;
+}
+
+#addFriend {
+	height: 10px;
+}
+#curFriends {
+	margin-bottom: 150px !important;
+}
+.refresher:hover {
+    color: green;
+}
+
+.refreshbtn {
+	float: right;
+	margin-right: 0;
+	position: relative;
+}
+
+#plus {
+	float: right;
 }

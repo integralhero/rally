@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Passport-Local Example</title>
-		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    	<link rel="stylesheet" type="text/css" href="css/style.css">
-	</head>
-	<body>
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rally</title>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<!-- 		<nav class="navbar-fixed-top brand" role="navigation">
 	      <div class="container-fluid">
 	        <div class="navbar-header">
 	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top-collapase">
@@ -31,12 +33,42 @@
 	          </ul>
 	        </div>
 	      </div>
-	    </nav>
-		<div class="container">
-		<%- body %>
-		</div>
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/refresh.js"></script>
-	</body>
+	  </nav> -->
+	  <nav class="navbar-fixed-top brand">
+	  	<p class="title">Rally
+	  	<% if (!user) { %>
+	  	<a href="/login" class="log">Log In</a>
+	  	<% } else { %>
+	  	<a href="/logout" class="log">Log Out</a>
+	  	<% } %>
+	  </p>
+
+
+	  </nav>
+
+	  <nav class="navbar-fixed-bottom" role="navigation">
+<!--       <div class="container-fluid">
+
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-bottom-collapase">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+      </div> -->
+      <div class="span3"><a href="/account" id="profilenav"><i class="fa fa-user fa-2x"></i></a></div>
+      <div class="span3"><a href="/" id="homenav" class="active"><i class="fa fa-home fa-2x"></i></a></div>
+      <div class="span3"><a href="/friends" id="friendsnav"><i class="fa fa-users fa-2x"></i></a></div>
+  </div>
+</div>
+</nav>
+
+
+<div class="container">
+	<%- body %>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/refresh.js"></script>
+</body>
 </html>

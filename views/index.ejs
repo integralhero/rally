@@ -66,9 +66,16 @@
 					<p>Oops, looks like you aren't following any activities. You should add some right now!</p>
 				<% } %>
 				<% for(var i=0; i<userRallies.length; i++) {%>
-				   <h3><%= userRallies[i].title %></h3>
+					<div class="activity">
+				   			<h3><%= userRallies[i].title %></h3>			
+				   			<div class="description">
+				   			<p>Location: Your house<br>
+				   			Time: Any time ;)</p>
+				   		</div>
+				   	</div><br><br>
 				<% } %> <!--end of for loop-->
 			</div>
+
 		</div><!-- End Row -->
 	</div> <!-- End Container -->
 <% } %>

@@ -1,0 +1,12 @@
+<% layout('layout') -%>
+<center>
+<h1><%=user.username%>'s Friends!</h1>
+<b>
+<% for (int i = 0; i<friends.length; i++) { %>
+<div class="activity">
+<h3><%=friend[i].username%></h3>
+<p>I remember when <%=friend[i].username %> and I used to hang out everyday! </p>
+<%= img_tag(friend[i].image) %>
+</div>
+<% } %>
+

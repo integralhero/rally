@@ -41,6 +41,19 @@ body {
 	background-color: #e74c3c;
 }
 
+.friendsColor {
+	color: #e74c3c;
+}
+
+
+.profileColor {
+	color: #f1c40f;
+}
+
+.activityColor {
+	color: #1abc9c;
+}
+
 #profilenav, #friendsnav, #homenav {
 	text-align: center;
 	color: white;
@@ -64,6 +77,7 @@ body {
 #plus:hover {
     color: #8e44ad;
 }
+
 
 
 .activity {

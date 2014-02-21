@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Capriola);
+
 body {
   padding-top: 60px;
   background-color: rgba(133, 133, 133, 0.05);
@@ -28,6 +30,7 @@ body {
 .titletext {
 	font-size: 90pt;
 	text-align: center;
+	font-family: 'Capriola', sans-serif;
 }
 .masked{
 	background: url(/img/paint.png) repeat, white;

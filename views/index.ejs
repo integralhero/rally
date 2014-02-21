@@ -91,7 +91,7 @@
 				      </div>
 				      <div class="modal-body">
 				      	What's your friend's name?<BR>
-				        <form id="add-friend-form">
+				        <form id="addFriendForm">
 				        	Name: <input type="text" id="friendName">
 				        	<div class="modal-footer">
 				        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -105,19 +105,24 @@
 				  </div>
 				</div><!-- End Modal -->
 			</div><!-- End Col -->
+
 			<div class="col-xs-12">
 				<BR>
-				<% if(userRallies.length == 0) { %>
+					<h2><small>Rally together...</small></h2>
+				<% if(allActivities.length == 0) { %>
 					<p>Oops, looks like you aren't following any activities. You should add some right now!</p>
 				<% } %>
 				<div class="all-activities">
-				<% for(var i=0; i<userRallies.length; i++) {%>
-					<div class="activity">
-				   			<h3 class=activityColor><%= userRallies[i].title %></h3>			
+				<% for(var i=0; i<allActivities.length; i++) {%>
+					<div class="activity" data-id="<%= allActivities[i]._id %>">
+				   			<h3 class=activityColor><%= allActivities[i].title %></h3>	
+				   			<button type="button" class="btn btn-success rallyBtn pull-right">Rally!</button>		
 				   			<div class="description">
-				   			<p>Location: Your house<br>
-				   			Time: Any time ;)</p>
-				   		</div>
+					   			<p>Location: Your house<br>
+					   			Time: Any time ;)</p>
+
+				   			</div>
+
 				   	</div><br><br>
 				<% } %> <!--end of for loop-->
 				</div>

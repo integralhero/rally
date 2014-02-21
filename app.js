@@ -139,22 +139,36 @@ app.get('/', function(req, res){
     User.find({username: req.user.username}, function(err, result) {
       if(err) {console.log(err); res.send(500);}
       var curUser = result[0];
+      var friendsIDS = curUser.friends;
+      Activity.find({creator: {$in: friendsIDS}} , function(err, acts){
+        res.render('index', {user: req.user, allActivities: acts});
+      });
+    });
+  } else {
+    res.render('index', { user: req.user});
+}
+});
+
+app.get('/account', ensureAuthenticated, function(req, res){
+  if(req.isAuthenticated()) {
+    User.find({username: req.user.username}, function(err, result) {
+      if(err) {console.log(err); res.send(500);}
+      var curUser = result[0];
       console.log("Retrieving user for index: " + curUser.username + ". He/she has " + curUser.rallies.length + "activities");
       //console.log("Number of rallies: " + curUser.rallies.length);
       console.log("ActivityC: " + curUser.rallies[0]);
       var query = Activity.find({creator: curUser._id});
       query.exec(function (err, activities) {
         //console.log(activity.title);
-        res.render('index', { user: req.user, userRallies: activities});
+        Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
+          res.render('account', { user: req.user, userRallies: activities, joined: acts});
+        });
+        
       })
     });
   } else {
-    res.render('index', { user: req.user});
+    res.render('account', { user: req.user});
   }
-});
-
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
 });
 
 app.get('/login', function(req, res){
@@ -163,6 +177,22 @@ app.get('/login', function(req, res){
 
 app.get('/signup', function(req, res){
   res.render('signup', { user: req.user, message: req.session.messages });
+});
+
+app.post('/rally', function(req, res) {
+  var form_data = req.body;
+  var rallyID = form_data["data-id"];
+  User.find({username: req.user.username}, function(err, result) {
+      var curUser = result[0];
+      Activity.find({_id: rallyID}, function(err, act) {
+        var activity = act[0];
+        curUser.rallies.push(activity._id);
+        curUser.save();
+        activity.ralliers.push(curUser._id);
+        activity.save();
+        res.send(200);
+      });
+  });
 });
 
 app.post('/user/new', function(req, res) {
@@ -181,6 +211,39 @@ app.post('/user/new', function(req, res) {
   // YOU MUST send an OK response w/ res.send();
 });
 
+app.get('/friends', function(req, res){
+  var me = req.user;
+  User.find({username: req.user.username}, function(err, self) {
+    var me = self[0];
+    //return an array of my friends, rendered to friends.ejs
+    var friendsIDS = me.friends;
+    User.find({_id: {$in: friendsIDS}}, function(err, friends){
+      res.render('friends', {user: req.user, userFriends: friends});
+    });
+  });
+});
+
+app.post('/friend/new', function(req, res){
+  var form_data = req.body;
+  console.log("flskdjfkljslkdjkfljlksjlkdjfkljlksjlkdjflkjsldkfjllsjdf");
+  User.find({username: form_data['username']}, function(err, result) {
+    if(err) {console.log(err); res.send(500);}
+    if(result.length > 0) {
+      var friend = result[0];
+      User.find({username: req.user.username}, function(err, self) {
+        var selfUser = self[0]; //only push from our side
+        selfUser.friends.push(friend._id);
+        selfUser.save();
+        res.send(200);
+      });
+    }
+    else {
+      //user not found
+    }
+    
+  });
+});
+
 app.post('/activity/new', function(req, res) {
   var form_data = req.body;
   //assign this activity to user as well
@@ -196,6 +259,7 @@ app.post('/activity/new', function(req, res) {
       });
       curUser.rallies.push(newActivity._id);
       curUser.save();
+      newActivity.ralliers.push(curUser._id);
       newActivity.save(function(err) {
         if(err) {console.log(err); res.send(500);}
         console.log("Added activity: " + newActivity.title);
@@ -241,6 +305,8 @@ app.post('/login', function(req, res, next) {
     });
   })(req, res, next);
 });
+
+
 
 app.get('/logout', function(req, res){
   req.logout();

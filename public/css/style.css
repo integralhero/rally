@@ -1,6 +1,7 @@
 body {
   padding-top: 60px;
   background-color: rgba(133, 133, 133, 0.05);
+  padding-bottom: 80px;
 }
 @media (max-width: 979px) {
   body {
@@ -126,6 +127,7 @@ body {
 	position: relative;
 	display: block;
 }
+
 
 .img-wrap:hover .img-overlay{
 	opacity:0.75;

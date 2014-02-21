@@ -3,12 +3,10 @@
 	<h1>Your Friends!</h1>
 	<br>
 	<div class="all-activities">
-	<% for (var i = 0; i<friends.length; i++) { %>
+	<% for (var i = 0; i<userFriends.length; i++) { %>
 		<div class="activity friendsColor">
-			<h3><%=friend[i].username%></h3>
-			<p>I remember when <%=friend[i].username %> and I used to hang out everyday! </p>
-			<%= img_tag(friend[i].image) %>
-		</div><br><br>
+			<h3><%=userFriends[i].username%></h3>
+		</div>	
 	<% } %>
 </div>
 

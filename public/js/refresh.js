@@ -31,14 +31,26 @@ $(document).on("click", "#addActivityButton", function(e) {
         }                
 });
 
-$(document).on("click", "#addActivityButton", function(e) { 
-        var friendName = $('#add-friend-form #friendName').val();
+$(document).on("click", ".rallyBtn", function(e) {
+    e.preventDefault();
+    var dataID = $(this).closest(".activity").attr("data-id");
+    var json = {
+        'data-id': dataID
+    };
+    $.post('/rally', json, function() {
+        window.location.href = '/'; // reload the page
+    });
+});
+
+$(document).on("click", "#addFriendButton", function(e) { 
+
+        var friendName = $('#addFriendForm #friendName').val();
         if(friendName.length > 0) { 
             var json = {
-                'username': username
+                'username': friendName
             };
-            $.post('/friend/add', json, function() {
-                window.location.href = '/'; // reload the page
+            $.post('/friend/new', json, function() {
+                window.location.href = '/friends'; // reload the page
             });
         }                
 });

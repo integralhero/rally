@@ -41,6 +41,14 @@ body {
 	background-color: #e74c3c;
 }
 
+.friendsBackgroundColor {
+	background-color: #e74c3c;
+}
+
+.activityBackgroundColor {
+	background-color: #1abc9c;
+}
+
 .friendsColor {
 	color: #e74c3c;
 }

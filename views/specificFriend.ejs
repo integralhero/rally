@@ -1,0 +1,13 @@
+<% layout('layout') -%>
+<div class="col-xs-12">
+	<h1><%=friend.username%>'s Activities!</h1>
+	<br>
+	<div class="all-activities">
+	<% for (var i = 0; i<friend.activities.length; i++) { %>
+		<div class="activity">
+			<h3 class="activityColor"><%=friend.activities[i].title%></h3>
+			<p>I remember when <%=friend[i].username %> and I used to hang out everyday! </p>
+			<%= img_tag(friend.activities[i].image) %>
+		</div><br><br>
+	<% } %>
+</div>

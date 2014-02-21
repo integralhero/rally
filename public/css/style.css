@@ -10,7 +10,6 @@ body {
 }
 
 
-
 .brand{
     float: left;
     padding-top: 5px;
@@ -24,6 +23,25 @@ body {
 .log {
 	float: right;
 	padding-right: 10px;
+}
+
+.titletext {
+	font-size: 90pt;
+	text-align: center;
+}
+.masked{
+	background: url(/img/paint.png) repeat, white;
+
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	-webkit-animation-name: masked-animation;
+	-webkit-animation-duration: 40s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+@-webkit-keyframes masked-animation {
+	0% {background-position: left bottom;}
+	100% {background-position: right bottom;}
 }
 
 .active{

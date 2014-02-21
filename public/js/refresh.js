@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  
+    $("a.firstLink").pageslide();
 });
 
 $(document).on("click", "#addUserButton", function(e) { 

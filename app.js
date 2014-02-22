@@ -34,6 +34,7 @@ var activitySchema = mongoose.Schema({
 var userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true},
+  imageURL: { type: String},
   friends : [{ type: Schema.Types.ObjectId, ref: 'User' }],
   rallies: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
 });
@@ -152,6 +153,16 @@ app.get('/', function(req, res){
 }
 });
 
+app.get('/search_friend', function(req, res) {
+   var regex = new RegExp(req.query["term"], 'i');
+   console.log("This is regex...... " + regex);
+   User.find({username: regex}).lean().exec(function (err, docs) {
+        res.send(JSON.stringify(docs), {
+            'Content-Type': 'application/json'
+        }, 200);
+   });
+});
+
 app.get('/account', ensureAuthenticated, function(req, res){
   if(req.isAuthenticated()) {
     User.find({username: req.user.username}, function(err, result) {
@@ -261,7 +272,7 @@ app.post('/activity/new', function(req, res) {
         "location": form_data['location'],
         "date": form_data['date'],
         "time": form_data['time'],
-        "creator": req.user._id
+        "creator": curUser._id
       });
       curUser.rallies.push(newActivity._id);
       curUser.save();

@@ -3,6 +3,34 @@ $(document).ready(function() {
 });
 
 $(function() {
+    $("#friendName").autocomplete({
+      source: function (request, response) {
+         $.ajax({
+            url: "/search_friend",
+            type: "GET",
+            dataType: "json",
+            data: request,  // request is the value of search input
+            success: function (data) {
+              //alert(data);
+              // Map response values to fiedl label and value
+               response($.map(data, function (item) {
+                  return {
+                     label: item.username,
+                     value: item.username
+                  };
+                  }));
+               }
+            });
+         },
+         
+         // The minimum number of characters a user must type before a search is performed.
+         minLength: 3, 
+         
+         // set an onFocus event to show the result on input field when result is focused
+
+    });
+});
+$(function() {
   $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
 });
 
@@ -36,7 +64,7 @@ $(document).on("click", "#addActivityButton", function(e) {
                 'time': activityTime
             };
             $.post('/activity/new', json, function() {
-                window.location.href = '/'; // reload the page
+                window.location.href = '/account'; // reload the page
             });
         }                
 });

@@ -1,7 +1,7 @@
 <% layout('layout') -%>
 <h1>This is you.<BR><small>Hey <%= user.username %>!</small></h1>
 <img width="300px" height=auto src="https://scontent-b-sjc.xx.fbcdn.net/hphotos-prn2/t31/279006_10151361163064591_730101631_o.jpg" alt="profpic" class="img-rounded"><BR>
-<h3> The things you do: </h3>
+<h3> Rallies you've created... </h3>
 <section>
 <% for(var i=0; i<userRallies.length; i++) {%>
 	<div class="activityProf">
@@ -13,8 +13,8 @@
          </div>
    	</div><br><br>
 <% } %> 
-
-<h3> Your Rallies: </h3>
+<BR>
+<h3> Rallies you've joined... </h3>
 <section>
 <% for(var i=0; i<joined.length; i++) {%>
 	<div class="activityProf">

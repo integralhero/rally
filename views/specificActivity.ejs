@@ -1,8 +1,10 @@
 <% layout('layout') -%>
 <div class="row-fluid">
+<a href="/">
 <button class="btn btn-primary btn-lg activityBackgroundColor" data-toggle="modal" data-target="#myModal">
                   <i class="fa fa-arrow-left fa-1x" ></i>
 </button>
+</a>
 	<div class="col-xs-12">
 		<h1 class="activityColor"> <%=activity.title%> <BR> <small>Followers: <%= activity.ralliers.length %></small></h1>
 		   	<div class="description">

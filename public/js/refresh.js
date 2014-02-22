@@ -2,6 +2,10 @@ $(document).ready(function() {
     $("a.firstLink").pageslide();
 });
 
+$(function() {
+  $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+});
+
 $(document).on("click", "#addUserButton", function(e) { 
         var username = $('#new-user-form #nameField').val();
         var password = $('#new-user-form #passwordField').val();

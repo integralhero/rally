@@ -158,13 +158,13 @@ body {
 	-webkit-transition:opacity 0.25s;
 }
 
-.activity:hover {
+/*.activity:hover {
 	opacity: 0.75;
     -webkit-transition-timing-function: ease-out;
     -webkit-transition-duration: 100ms;
     -moz-transition-timing-function: ease-out;
     -moz-transition-duration: 100ms;
-}
+}*/
 #addFriend:hover {
     opacity: .5;
     -webkit-transform: scale(1.1,1.1);

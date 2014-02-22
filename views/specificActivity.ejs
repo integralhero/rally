@@ -2,7 +2,14 @@
 <div class="row-fluid">
 	<div class="col-xs-12">
 		<h1 class="activityColor"> <%=activity.title%> <BR> <small>Followers: <%= activity.ralliers.length %></small></h1>
-		
-		<p>Description: This activity is so awesome. You should rally with it!</p>
+		   	<div class="description">
+                <p>Location: <%= activity.location %><br>
+                 Date: <%= activity.date %><br>
+                 Time: <%= activity.time %></p>
+                 <p>
+                 I think we should add a description here that will only show up once you click that specific rally.
+                 </p>
+   			</div>
+
 	</div>
 </div>

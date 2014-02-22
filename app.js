@@ -23,6 +23,9 @@ mongoose.set('debug', true);
 //Activity Schema
 var activitySchema = mongoose.Schema({
   title: { type: String, required: true, unique: true },
+  location: {type: String, required: true, unique: true},
+  date: {type: Date, required: true, unique: true},
+  time: {type: String, required: true, unique: true},
   creator: { type: Schema.Types.ObjectId, ref: 'User' },
   ralliers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
@@ -255,6 +258,9 @@ app.post('/activity/new', function(req, res) {
       if(err) {console.log(err); res.send(500);}
       var newActivity = new Activity({
         "title": form_data['title'],
+        "location": form_data['location'],
+        "date": form_data['date'],
+        "time": form_data['time'],
         "creator": req.user._id
       });
       curUser.rallies.push(newActivity._id);
@@ -262,7 +268,7 @@ app.post('/activity/new', function(req, res) {
       newActivity.ralliers.push(curUser._id);
       newActivity.save(function(err) {
         if(err) {console.log(err); res.send(500);}
-        console.log("Added activity: " + newActivity.title);
+        console.log("Added activity: " + newActivity.title + newActivity.location + newActivity.date + newActivity.time);
         console.log("Yay, saved new activity and added to " + curUser.username);
         res.send(200);
       });

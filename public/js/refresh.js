@@ -21,9 +21,15 @@ $(document).on("click", "#addUserButton", function(e) {
 
 $(document).on("click", "#addActivityButton", function(e) { 
         var activityName = $('#activityForm #activityName').val();
+        var activityLocation = $('#activityForm #activityLocation').val();
+        var activityDate = $('#activityForm #activityDate').val();
+        var activityTime = $('#activityForm #activityTime').val();
         if(activityName.length > 0) { 
             var json = {
-                'title': activityName
+                'title': activityName,
+                'location': activityLocation,
+                'date': activityDate,
+                'time': activityTime
             };
             $.post('/activity/new', json, function() {
                 window.location.href = '/'; // reload the page

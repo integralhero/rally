@@ -1,6 +1,11 @@
 <% layout('layout') -%>
 <h1>This is you.<BR><small>Hey <%= user.username %>!</small></h1>
-<img width="300px" height=auto src="https://scontent-b-sjc.xx.fbcdn.net/hphotos-prn2/t31/279006_10151361163064591_730101631_o.jpg" alt="profpic" class="img-rounded"><BR>
+<img width="300px" height=auto src="<%= user.imageURL %>" alt="profpic" class="img-rounded"><BR>
+Upload a new picture:
+<form method="post" enctype="multipart/form-data" action="/file-upload">
+    <input type="file" name="profPic">
+    <input type="submit">
+</form>
 <h3> Rallies you've created... </h3>
 <section>
 <% for(var i=0; i<userRallies.length; i++) {%>

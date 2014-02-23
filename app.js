@@ -34,6 +34,8 @@ var activitySchema = mongoose.Schema({
 var userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true},
+  passwordUH: { type: String, required: true},
+  email: {type: String, required: true, unqieu: true},
   imageURL: { type: String},
   friends : [{ type: Schema.Types.ObjectId, ref: 'User' }],
   rallies: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
@@ -173,6 +175,27 @@ app.get('/search_friend', function(req, res) {
    });
 });
 
+app.post('/emaillookup', function(req, res) {
+  var form_data = req.body;
+  var email = form_data["email"];
+  User.find({email: email}, function(err, result){
+    if(result.length == 0) {
+      req.session.messages = "Email not found in database!";
+    }
+    else {
+      var userWithEmail = result[0];
+      var passwordUser = userWithEmail.passwordUH;
+      req.session.messages = "Email has been sent!";
+      smtpTransport.sendMail({
+         from: "David Jiang <integralhero@gmail.com>", // sender address
+         to: userWithEmail.username + " <" + email + ">", // comma separated list of receivers
+         subject: "Your Rally Password", // Subject line
+         text: "Hello. You have sent a password request. Your password is: " + passwordUser // plaintext body
+      });
+    }
+    res.send(200);
+  });
+});
 
 var fs = require('fs');
 app.post('/file-upload', function(req, res) {
@@ -219,7 +242,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user, message: req.session.messages });
+  res.render('login', { user: req.user, message: req.session.messages});
 });
 
 app.get('/signup', function(req, res){
@@ -247,6 +270,8 @@ app.post('/user/new', function(req, res) {
   var newUser = new User({
     "username": form_data['username'],
     "password": form_data['password'],
+    "passwordUH": form_data['password'],
+    "email": form_data['email'],
     "imageURL": "http://placekitten.com/g/200/300"
   });
   newUser.save(afterSave);

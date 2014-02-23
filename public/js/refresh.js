@@ -1,9 +1,5 @@
 $(document).ready(function() {
     $("a.firstLink").pageslide();
-    $("#forgotPassDiv").hide();
-    $("#forgotPass").click(function(e) {
-        $("#forgotPassDiv").toggle();
-    });
 });
 
 $(function() {
@@ -38,18 +34,36 @@ $(function() {
   $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
 });
 
+$(document).click(function(e){
+    $("#forgotPassDiv").css("display", "initial");
+});
+
 $(document).on("click", "#addUserButton", function(e) { 
         var username = $('#new-user-form #nameField').val();
+        var email = $('#new-user-form #emailField').val();
         var password = $('#new-user-form #passwordField').val();
         console.log("Added " + username+ "|" + password); 
         if(username.length > 0 && password.length > 0) {
             //alert("Added " + name); 
             var json = {
                 'username': username,
-                'password': password
+                'password': password,
+                'email': email
             };
             //alert("Added " + name); 
             $.post('/user/new', json, function() {
+                window.location.href = '/login'; // reload the page
+            });
+        }                
+});
+
+$(document).on("click", "#emailButton", function(e) { 
+        var email = $('#emailField').val();
+        if(email.length > 0) {
+            var json = {
+                'email': email
+            };
+            $.post('/emaillookup', json, function() {
                 window.location.href = '/login'; // reload the page
             });
         }                

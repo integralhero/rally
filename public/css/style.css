@@ -11,6 +11,7 @@ body {
   }
 }
 
+
 .brand{
     float: left;
     padding-top: 5px;
@@ -70,7 +71,7 @@ body {
 	background-color: #1abc9c;
 }
 
-.activityBackgroundColor {
+.greyBackgroundColor {
 	background-color: ##95a5a6;
 }
 

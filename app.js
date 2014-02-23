@@ -147,6 +147,25 @@ app.get('/', function(req, res){
       var curUser = result[0];
       var friendsIDS = curUser.friends;
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){
+        console.log("printing list of activities" + acts);
+        /*
+        for (var i = 0; i < acts.length; i++) { //iterate through activities
+            //var userHasThisActivity = false; //initialize the var for whether or not the activity is the user's
+            User.find({username: req.user.username}, function(err1, result) {
+              var curUser = result[0]; //get the current user
+              curUser.rallies.find(acts[i], function(err2, result) { //check if the current user has the rally
+                if(err2) {
+                  //the user does not have the rally, add a 'false' bool to the user's JSON object
+                } else {
+                  //the user has the rally, add a 'true' bool to the user's JSON object
+                }
+              })
+        }
+
+        //HEY!! What has to happen here is the activities list has to be iterated through and a bool field activiites
+        //should be added to each activity where the bool cooresponds to whether or not the activity is in the array of 
+        //the users activities
+        */
         res.render('index', {user: req.user, allActivities: acts});
       });
     });

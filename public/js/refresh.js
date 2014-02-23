@@ -1,5 +1,9 @@
 $(document).ready(function() {
     $("a.firstLink").pageslide();
+    $("#forgotPassDiv").hide();
+    $("#forgotPass").click(function(e) {
+        $("#forgotPassDiv").toggle();
+    });
 });
 
 $(function() {
@@ -66,8 +70,10 @@ $(document).on("click", "#addActivityButton", function(e) {
             $.post('/activity/new', json, function() {
                 window.location.href = '/account'; // reload the page
             });
+            $("#hiddenNotice").html("Added new activity " + activityName);
         }                
 });
+
 
 $(document).on("click", ".rallyBtn", function(e) {
     e.preventDefault();

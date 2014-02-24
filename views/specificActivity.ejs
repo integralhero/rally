@@ -5,6 +5,37 @@
                   <i class="fa fa-arrow-left fa-1x" ></i>
 </button>
 </a>
+<!-- Button trigger modal -->
+
+                <button class="btn btn-primary btn-lg activityBackgroundColor" data-toggle="modal" data-target="#myModal">
+                  Edit Activity  <i class="fa fa-plus fa-1x" ></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Activity</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form id="activityForm">
+                            <input type="text" id="activityName" class="form-control" value="<%=activity.title%>" placeholder="Activity name"><br>
+                            <input type="text" id="activityLocation" value=<%=activity.location%> class="form-control" placeholder="Location"><br>
+                            Date <input type="date" id="activityDate" value="<%= activity.date %>" class="form-control"><br>
+                            Time <input type="time" id="activityTime" value="<%= activity.time %>" class="form-control">
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="finishedEditingActivityButton" class="btn btn-primary">Finished</button>
+                      </div>
+                        </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div><!-- End Modal -->
+
 	<div class="col-xs-12">
 		<h1 class="activityColor"> <%=activity.title%> <BR> <small>Followers: <%= activity.ralliers.length %></small></h1>
 		   	<div class="description">

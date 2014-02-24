@@ -88,6 +88,43 @@ $(document).on("click", "#addActivityButton", function(e) {
         }                
 });
 
+$(document).on("click", "#addActivityButton", function(e) { 
+        var activityName = $('#activityForm #activityName').val();
+        var activityLocation = $('#activityForm #activityLocation').val();
+        var activityDate = $('#activityForm #activityDate').val();
+        var activityTime = $('#activityForm #activityTime').val();
+        if(activityName.length > 0) { 
+            var json = {
+                'title': activityName,
+                'location': activityLocation,
+                'date': activityDate,
+                'time': activityTime
+            };
+            $.post('/activity/new', json, function() {
+                window.location.href = '/account'; // reload the page
+            });
+            $("#hiddenNotice").html("Added new activity " + activityName);
+        }                
+});
+
+$(document).on("click", "#finishedEditingActivityButton", function(e) { 
+        var activityName = $('#activityForm #activityName').val();
+        var activityLocation = $('#activityForm #activityLocation').val();
+        var activityDate = $('#activityForm #activityDate').val();
+        var activityTime = $('#activityForm #activityTime').val();
+        if(activityName.length > 0) { 
+            var json = {
+                'title': activityName,
+                'location': activityLocation,
+                'date': activityDate,
+                'time': activityTime
+            };
+            $.post('/activity/new', json, function() {
+                window.location.href = '/account'; // reload the page
+            });
+        }                
+});
+
 
 $(document).on("click", ".rallyBtn", function(e) {
     e.preventDefault();

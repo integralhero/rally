@@ -88,23 +88,27 @@ $(document).on("click", "#addActivityButton", function(e) {
         }                
 });
 
-$(document).on("click", "#finishedEditingActivityButton", function(e) { 
-        var activityName = $('#activityForm #activityName').val();
-        var activityLocation = $('#activityForm #activityLocation').val();
-        var activityDate = $('#activityForm #activityDate').val();
-        var activityTime = $('#activityForm #activityTime').val();
+/*$(document).on("click", "#finishedEditingActivityButton", function(e) { 
+        var activityId = $('#editActivityForm #idNumber').val();
+        var activityName = $('#editActivityForm #activityName').val();
+        var activityLocation = $('#editActivityForm #activityLocation').val();
+        var activityDate = $('#editActivityForm #activityDate').val();
+        var activityTime = $('#editActivityForm #activityTime').val();
         if(activityName.length > 0) { 
             var json = {
+                'id':activityId,
                 'title': activityName,
                 'location': activityLocation,
                 'date': activityDate,
                 'time': activityTime
             };
-            $.post('/activity/new', json, function() {
-                window.location.href = '/account'; // reload the page
+            console.log(json);
+            $.post('/activity/edit', json, function() {
+                window.location.href = '/activity/'+activityName; // reload the page
             });
-        }                
-});
+            $("#hiddenNotice").html("Edited activity " + activityName);
+        }
+})*/
 
 
 $(document).on("click", ".rallyBtn", function(e) {

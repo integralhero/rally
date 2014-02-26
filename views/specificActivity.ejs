@@ -21,14 +21,18 @@
                         <h4 class="modal-title" id="myModalLabel">Edit Activity</h4>
                       </div>
                       <div class="modal-body">
-                        <form id="activityForm">
-                            <input type="text" id="activityName" class="form-control" value="<%=activity.title%>" placeholder="Activity name"><br>
-                            <input type="text" id="activityLocation" value=<%=activity.location%> class="form-control" placeholder="Location"><br>
-                            Date <input type="date" id="activityDate" value="<%= activity.date %>" class="form-control"><br>
-                            Time <input type="time" id="activityTime" value="<%= activity.time %>" class="form-control">
+                        <form id="editActivityForm" method="post" action="/activity/edit">
+                            <input type="text" name="idNumber" id="idNumber" value="<%=activity._id%>" class="hiddenElem">
+                            <input type="text" name="activityName" id="activityName" class="form-control" value="<%=activity.title%>" placeholder="Activity name"><br>
+                            <input type="text" name="activityLocation" id="activityLocation" value=<%=activity.location%> class="form-control" placeholder="Location"><br>
+                            Date <input type="date" name="activityDate" id="activityDate" value="<%=(new Date(activity.date)).getMonth()+1+"/"+(new Date(activity.date)).getDate()+"/"+(new Date(activity.date)).getFullYear()%>" class="form-control"><br>
+                            
+                            <%=(new Date(activity.date)).getMonth()+1+"/"+(new Date(activity.date)).getDate()+"/"+(new Date(activity.date)).getFullYear()%> this is the date value.. how come it doesn't work above? <br>
+
+                            Time <input type="time" name="activityTime" id="activityTime" value="<%= activity.time %>" class="form-control">
                             <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" id="finishedEditingActivityButton" class="btn btn-primary">Finished</button>
+                            <button id="editActivity" class="btn btn-primary btn-lg">Done</input>
                       </div>
                         </form>
                       </div>

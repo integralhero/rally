@@ -47,6 +47,10 @@ body {
 	100% {background-position: right bottom;}
 }
 
+.hiddenElem {
+	visibility: hidden;
+}
+
 .active{
 	border-bottom: 5px solid white;
 }

@@ -160,24 +160,7 @@ app.get('/', function(req, res){
       var friendsIDS = curUser.friends;
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){
         console.log("printing list of activities" + acts);
-        /*
-        for (var i = 0; i < acts.length; i++) { //iterate through activities
-            //var userHasThisActivity = false; //initialize the var for whether or not the activity is the user's
-            User.find({username: req.user.username}, function(err1, result) {
-              var curUser = result[0]; //get the current user
-              curUser.rallies.find(acts[i], function(err2, result) { //check if the current user has the rally
-                if(err2) {
-                  //the user does not have the rally, add a 'false' bool to the user's JSON object
-                } else {
-                  //the user has the rally, add a 'true' bool to the user's JSON object
-                }
-              })
-        }
 
-        //HEY!! What has to happen here is the activities list has to be iterated through and a bool field activiites
-        //should be added to each activity where the bool cooresponds to whether or not the activity is in the array of 
-        //the users activities
-        */
         res.render('index', {user: req.user, allActivities: acts});
       });
     });
@@ -296,9 +279,41 @@ app.post('/rally', function(req, res) {
   });
 });
 
+
+app.post('/activity/edit', function(req, res) {
+  var actID = req.body.idNumber;
+  Activity.find({_id: actID}, function(err, act) {
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      var activity = act[0];
+      console.log("--->>> this is the activity before: " + activity);
+      activity.title = req.body.activityName;
+      activity.location = req.body.activityLocation;
+      //activity.date = req.body.activityDate; //for some reason the code to set the date input field (i.e. value=activity.date) does not work in specificActivity.ejs
+                                                //thus, I've commented out the date field so that it is not actually changeable. Uncomment this code when specificActivity.ejs is working.
+      activity.time = req.body.activityTime;
+      console.log("--->>> this is the activity after: " + activity);
+      activity.save(afterSaving);
+      
+      function afterSaving(error) {
+        if(error) {
+          console.log(error);
+        } else {
+          res.send(200);
+          res.redirect('/account');
+        }
+      }
+    }
+  }); 
+});
+
+
+
 app.post('/activity/delete', function(req, res) {
   var actID = req.body.hiddenID;
-  console.log(actID + "Helllooooooooo~~~~~~~~~-------------------------------------------------------");
   Activity.remove({_id: actID}, function(err) {
     if(err) {
       console.log(err);
@@ -405,12 +420,39 @@ app.post('/activity/new', function(req, res) {
         console.log("Yay, saved new activity and added to " + curUser.username);
         res.send(200);
       });
-
     });
-    
   });
-
 });
+
+app.post('/activity/new', function(req, res) {
+  var form_data = req.body;
+  //assign this activity to user as well
+  User.find({username: req.user.username}, function(err, result) {
+    if(err) {console.log(err); res.send(500);}
+    var curUser = result[0];
+    console.log("Found current user " + curUser.username+ "---------");
+    curUser.save(function(err){
+      if(err) {console.log(err); res.send(500);}
+      var newActivity = new Activity({
+        "title": form_data['title'],
+        "location": form_data['location'],
+        "date": form_data['date'],
+        "time": form_data['time'],
+        "creator": curUser._id
+      });
+      curUser.rallies.push(newActivity._id);
+      curUser.save();
+      newActivity.ralliers.push(curUser._id);
+      newActivity.save(function(err) {
+        if(err) {console.log(err); res.send(500);}
+        console.log("Added activity: " + newActivity.title + newActivity.location + newActivity.date + newActivity.time);
+        console.log("Yay, saved new activity and added to " + curUser.username);
+        res.send(200);
+      });
+    });
+  });
+});
+
 
 // POST /login
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -452,6 +494,15 @@ app.get('/activity/:id', function(req, res) {
     res.render('specificActivity', {user: req.user, activity: activity});
   });
 });
+
+app.get('/activity/:id', function(req, res) {
+  var activityID = req.params.id;
+  Activity.find({_id: activityID}, function(err, result){
+    var activity = result[0];
+    res.render('specificActivity', {user: req.user, activity: activity});
+  });
+});
+
 
 app.get('/user/:id', function(req, res) {
   var userID = req.params.id;

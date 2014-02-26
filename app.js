@@ -41,6 +41,18 @@ var userSchema = mongoose.Schema({
   rallies: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
 });
 
+activitySchema.pre('remove', function (next) {
+  var thisActID = this._id;
+  console.log("Removing " + thisActID + "from all users");
+  User.find({}, function(err, allUsers) {
+    for(var i = 0; i < allUsers.length; i++) {
+      allUsers[i].rallies.remove(thisActID);
+      allUsers[i].save();
+    }
+  });
+  next();
+});
+
 // Password verification
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
@@ -282,6 +294,21 @@ app.post('/rally', function(req, res) {
         res.send(200);
       });
   });
+});
+
+app.post('/activity/delete', function(req, res) {
+  var actID = req.body.hiddenID;
+  console.log(actID + "Helllooooooooo~~~~~~~~~-------------------------------------------------------");
+  Activity.remove({_id: actID}, function(err) {
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      console.log(actID + " removed!");
+      res.redirect('/account');
+    }
+  }); 
 });
 
 app.post('/user/new', function(req, res) {

@@ -6,8 +6,14 @@
 </button>
 </a>
 	<div class="col-xs-12">
-		<img width="300px" height="auto" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/t1/29604_559855414028037_1472903552_n.jpg">
+		<img width="300px" height="auto" src="<%= friend.imageURL %>">
 		<h1 class=friendsColor>Your buddy: <%=friend.username%></h1>
-		<h3><%=friend.username%> is currently doing <%= friend.rallies.length %> activities. Maybe you should join!</h3>
+
+		<h4>Check out what your friend is up to:</h4>
+		<ul>
+			<% for(var i = 0; i < friendRallies.length; i++) { %>
+				<li><a href="/activity/<%= friendRallies[i]._id%>"><%= friendRallies[i].title%></a></li>
+			<% } %>
+		</ul>
 	</div>
 </div>

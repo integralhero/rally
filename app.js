@@ -41,6 +41,18 @@ var userSchema = mongoose.Schema({
   rallies: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
 });
 
+activitySchema.pre('remove', function (next) {
+  var thisActID = this._id;
+  console.log("Removing " + thisActID + "from all users");
+  User.find({}, function(err, allUsers) {
+    for(var i = 0; i < allUsers.length; i++) {
+      allUsers[i].rallies.remove(thisActID);
+      allUsers[i].save();
+    }
+  });
+  next();
+});
+
 // Password verification
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
@@ -284,6 +296,21 @@ app.post('/rally', function(req, res) {
   });
 });
 
+app.post('/activity/delete', function(req, res) {
+  var actID = req.body.hiddenID;
+  console.log(actID + "Helllooooooooo~~~~~~~~~-------------------------------------------------------");
+  Activity.remove({_id: actID}, function(err) {
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      console.log(actID + " removed!");
+      res.redirect('/account');
+    }
+  }); 
+});
+
 app.post('/user/new', function(req, res) {
   var form_data = req.body;
   var newUser = new User({
@@ -310,27 +337,44 @@ app.get('/friends', function(req, res){
     //return an array of my friends, rendered to friends.ejs
     var friendsIDS = me.friends;
     User.find({_id: {$in: friendsIDS}}, function(err, friends){
-      res.render('friends', {user: req.user, userFriends: friends});
+      res.render('friends', {user: req.user, userFriends: friends, message: req.session.messages});
     });
   });
 });
 
 app.post('/friend/new', function(req, res){
   var form_data = req.body;
-  console.log("flskdjfkljslkdjkfljlksjlkdjfkljlksjlkdjflkjsldkfjllsjdf");
   User.find({username: form_data['username']}, function(err, result) {
     if(err) {console.log(err); res.send(500);}
     if(result.length > 0) {
       var friend = result[0];
       User.find({username: req.user.username}, function(err, self) {
         var selfUser = self[0]; //only push from our side
-        selfUser.friends.push(friend._id);
-        selfUser.save();
-        res.send(200);
+        console.log("curUserID: " + selfUser._id + " --------- friendID: " + friend._id);
+        console.log("-------------------------- " + selfUser._id.equals(friend._id));
+        for(var i = 0; i < selfUser.friends.length; i++) {
+          if(((selfUser.friends)[i]).equals(friend._id)) {
+            console.log("ERROR: FRIEND EXISTS");
+            req.session.messages= "Error, this friend has already been added. Try adding another!";
+            res.send(200);
+          }
+        }
+        if(selfUser._id.equals(friend._id)) {
+          console.log("ERROR, TRIED ADDING SELF");
+          req.session.messages = "Error, you can't add yourself. Try again";
+          res.send(200);
+        }
+        else {
+          selfUser.friends.push(friend._id);
+          selfUser.save();
+          res.send(200);
+        }
+        
       });
     }
     else {
-      //user not found
+      req.session.messages = "Error, user not found. Try again";
+      res.redirect("/");
     }
     
   });
@@ -413,7 +457,9 @@ app.get('/user/:id', function(req, res) {
   var userID = req.params.id;
   User.find({_id: userID}, function(err, result){
     var friend = result[0];
-    res.render('specificFriend', {user: req.user, friend: friend});
+    Activity.find({_id: {$in: friend.rallies}} , function(err, acts){
+      res.render('specificFriend', {user: req.user, friend: friend, friendRallies: acts});
+    });
   });
 });
 

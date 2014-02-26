@@ -82,7 +82,7 @@ $(document).on("click", "#addActivityButton", function(e) {
                 'time': activityTime
             };
             $.post('/activity/new', json, function() {
-                window.location.href = '/account'; // reload the page
+                window.location.href = '/account/'+activityName; // reload the page
             });
             $("#hiddenNotice").html("Added new activity " + activityName);
         }                

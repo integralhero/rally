@@ -1,6 +1,8 @@
 <% layout('layout') -%>
-<h1>This is you.<BR><small>Hey <%= user.username %>!</small></h1>
+<center>
+<h1>Hey<%= user.username %>!</h1>
 <img width="300px" height=auto src="<%= user.imageURL %>" alt="profpic" class="img-rounded"><BR>
+</center>
 Upload a new picture:
 <form method="post" enctype="multipart/form-data" action="/file-upload">
     <input type="file" name="profPic">
@@ -12,9 +14,9 @@ Upload a new picture:
 	<div class="activityProf">
    			<h3 class="activityColor"><a href="/activity/<%= userRallies[i]._id%>"><%= userRallies[i].title %></a></h3>			
             <div class="description">
-                   <p>Location: <%= userRallies[i].location %><br>
-                  Date: <%= userRallies[i].date %><br>
-                  Time: <%= userRallies[i].time %></p>
+                   <p><%= userRallies[i].location %><br>
+                  <%=(new Date(userRallies[i].date)).getMonth()+1+"/"+(new Date(userRallies[i].date)).getDate()+"/"+(new Date(userRallies[i].date)).getFullYear()%>, <%= userRallies[i].time %><br>
+                  </p>
          </div>
    	</div><br><br>
 <% } %> 
@@ -25,9 +27,9 @@ Upload a new picture:
 	<div class="activityProf">
    			<h3 class=activityColor><a href="/activity/<%= joined[i]._id%>"><%= joined[i].title %></a></h3>			
    			<div class="description">
-                           <p>Location: <%= joined[i].location %><br>
-                           Date: <%= joined[i].date %><br>
-                           Time: <%= joined[i].time %></p>
+                           <p><%= joined[i].location %><br>
+                          <%=(new Date(joined[i].date)).getMonth()+1+"/"+(new Date(joined[i].date)).getDate()+"/"+(new Date(joined[i].date)).getFullYear()%>, <%= joined[i].time %><br>
+                           </p>
    		</div>
    	</div><br><br>
 <% } %> 

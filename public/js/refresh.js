@@ -31,7 +31,16 @@ $(function() {
     });
 });
 $(function() {
-  $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+    console.log("OMG---------->>>>> "+location.pathname.split("/")[1] +"<<<<-------||");
+    //console.log($('nav a[href^="/' + location.pathname.split("/")[1] + '"]');
+    if(location.pathname.split("/")[1] == "") {
+        $("#tab2").addClass('active');
+    } else if(location.pathname.split("/")[1] == "account"){
+        $("#tab1").addClass('active');
+    } else if(location.pathname.split("/")[1] == "friends"){
+        console.log("Test!");
+        $("#tab3").addClass('active');
+    }
 });
 
 $("#forgotPass").click(function(e){

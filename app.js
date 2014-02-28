@@ -398,6 +398,7 @@ app.post('/friend/new', function(req, res){
             console.log("ERROR: FRIEND EXISTS");
             req.flash('error', "Error, this friend has already been added. Try adding another!") ;
             res.send(200);
+            return;
           }
         }
         if(selfUser._id.equals(friend._id)) {
@@ -415,7 +416,7 @@ app.post('/friend/new', function(req, res){
     }
     else {
       req.flash('error', "Error, user not found. Try again") ;
-      res.redirect("/");
+      res.send(200);
     }
     
   });

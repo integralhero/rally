@@ -55,7 +55,7 @@
 
 <% } else { %>
 <% layout('layout') -%>
-	<div class="container-fluid">
+	<div class="container-fluid center">
 		<h2>Hey, <%= user.username %>!</h2>
 		<div id="hiddenNotice"></div>
 		<div class="row">
@@ -63,7 +63,7 @@
 				<!-- Button trigger modal -->
 
 				<button class="btn btn-primary btn-lg activityBackgroundColor" data-toggle="modal" data-target="#myModal">
-				  Add an Activity  <i class="fa fa-plus fa-1x" ></i>
+				 <i class="fa fa-plus fa-1x" ></i> Activity
 				</button>
 
 				<!-- Modal -->
@@ -93,7 +93,7 @@
 				<!-- Button trigger modal -->
 
 				<button class="btn btn-success btn-lg friendsBackgroundColor" data-toggle="modal" data-target="#friendModal">
-				  Add a Friend  <i class="fa fa-plus fa-1x" ></i>
+				<i class="fa fa-plus fa-1x" ></i> Friend  
 				</button>
 
 				<!-- Modal -->
@@ -125,7 +125,7 @@
 				<BR>
 					
 				<% if(allActivities.length == 0) { %>
-					<p>Oops, looks like you aren't following any activities. You should add some friends and rally with t hem!</p>
+					<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
 				<% } %>
 				<div class="all-activities">
 				<% for(var i=0; i<allActivities.length; i++) {%>

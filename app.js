@@ -162,11 +162,11 @@ app.get('/', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, allActivities: acts});
+        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error')});
       });
     });
   } else {
-    res.render('index', { user: req.user});
+    res.render('index', { user: req.user , message: req.flash('error')});
 }
 });
 
@@ -257,11 +257,11 @@ app.get('/account', ensureAuthenticated, function(req, res){
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user, message: req.session.messages});
+  res.render('login', { user: req.user, message: req.flash('error')});
 });
 
 app.get('/signup', function(req, res){
-  res.render('signup', { user: req.user, message: req.session.messages });
+  res.render('signup', { user: req.user, message: req.flash('error')});
 });
 
 app.post('/rally', function(req, res) {
@@ -342,21 +342,33 @@ app.post('/activity/delete', function(req, res) {
 
 app.post('/user/new', function(req, res) {
   var form_data = req.body;
-  var newUser = new User({
-    "username": form_data['username'],
-    "password": form_data['password'],
-    "passwordUH": form_data['password'],
-    "email": form_data['email'],
-    "imageURL": "http://placekitten.com/g/200/300"
+  var usernamer = form_data['username'];
+  var emailr = form_data['email'];
+  User.find({$or: [{username: usernamer}, {email: emailr}]},function(err, result) {
+    if(result.length == 0) {
+      console.log("Got here!");
+      var newUser = new User({
+        "username": username,
+        "password": form_data['password'],
+        "passwordUH": form_data['password'],
+        "email": email,
+        "imageURL": "http://placekitten.com/g/200/300"
+      });
+      newUser.save(afterSave);
+      //console.log("Added!: "+ form_data);
+      function afterSave(err) {
+        if(err) {console.log(err); res.send(500);}
+        res.send(200);
+      }
+    }
+    else {
+      console.log("Got here instead...!");
+      req.flash('error', "Username or email already exists. Try again!");
+      res.send(200);
+    }
   });
-  newUser.save(afterSave);
-  console.log("Added!: "+ form_data);
-  function afterSave(err) {
-    if(err) {console.log(err); res.send(500);}
-    res.send(200);
-  }
-  // make a new Project and save it to the DB
-  // YOU MUST send an OK response w/ res.send();
+  
+
 });
 
 app.get('/friends', function(req, res){
@@ -463,7 +475,7 @@ app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err) }
     if (!user) {
-      req.session.messages =  [info.message];
+      req.flash('error', "Error: Username entered doesn't match password. Try again!");
       return res.redirect('/login')
     }
     req.logIn(user, function(err) {

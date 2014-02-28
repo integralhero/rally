@@ -22,10 +22,10 @@ var Schema = mongoose.Schema;
 mongoose.set('debug', true);
 //Activity Schema
 var activitySchema = mongoose.Schema({
-  title: { type: String, required: true, unique: true },
-  location: {type: String, required: true, unique: true},
-  date: {type: Date, required: true, unique: true},
-  time: {type: String, required: true, unique: true},
+  title: { type: String, required: true},
+  location: {type: String, required: true},
+  date: {type: Date, required: true},
+  time: {type: String, required: true},
   creator: { type: Schema.Types.ObjectId, ref: 'User' },
   ralliers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
@@ -348,10 +348,10 @@ app.post('/user/new', function(req, res) {
     if(result.length == 0) {
       console.log("Got here!");
       var newUser = new User({
-        "username": username,
+        "username": usernamer,
         "password": form_data['password'],
         "passwordUH": form_data['password'],
-        "email": email,
+        "email": emailr,
         "imageURL": "http://placekitten.com/g/200/300"
       });
       newUser.save(afterSave);

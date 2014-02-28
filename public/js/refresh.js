@@ -62,7 +62,7 @@ $(document).on("click", "#addUserButton", function(e) {
         if(password == '' || username == '' || email == '') {
             $("#signup").prepend("<div class='alert alert-danger'>Error: Make sure all fields are filled in</div>");
         }
-        else if(username.length > 0 && password.length > 0) {
+        else if(isValidEmailAddress(email) && username.length > 0 && password.length > 0) {
             //alert("Added " + name); 
             var json = {
                 'username': username,

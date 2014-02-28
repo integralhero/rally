@@ -52,7 +52,7 @@ body {
 }
 
 .active{
-	border-bottom: 5px solid white;
+	border-bottom: 5px solid black;
 }
 
 #profilenav {
@@ -76,7 +76,7 @@ body {
 }
 
 .greyBackgroundColor {
-	background-color: ##95a5a6;
+	background-color: #95a5a6;
 }
 
 .friendsColor {

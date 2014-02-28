@@ -66,6 +66,18 @@ $(document).on("click", "#addUserButton", function(e) {
         }                
 });
 
+$(document).on("click", ".unrallybtn", function(e) {
+    e.preventDefault();
+    var dataID = $(this).closest(".activity").attr("data-id");
+    var json = {
+        'data-id': dataID
+    };
+    $.post('/unrally', json, function() {
+        window.location.href = '/'; // reload the page
+    });
+});
+
+
 $(document).on("click", "#emailButton", function(e) { 
         var email = $('#emailField').val();
         if(email.length > 0) {

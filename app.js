@@ -280,6 +280,19 @@ app.post('/rally', function(req, res) {
   });
 });
 
+app.post('/unrally', function(req, res) {
+  var form_data = req.body;
+  var rallyID = form_data["data-id"];
+  User.find({username: req.user.username}, function(err, result) {
+      var curUser = result[0];
+      Activity.find({_id: rallyID}, function(err, act) {
+        var activity = act[0];
+        delete activity.ralliers[curUser._id];
+        res.send(200);
+      });
+  });
+});
+
 
 app.post('/activity/edit', function(req, res) {
   var actID = req.body.idNumber;

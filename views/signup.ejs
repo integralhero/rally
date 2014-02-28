@@ -5,7 +5,11 @@
 	</div>
 	<div class="row-fluid">
 		<div class="col-md-12">
-		<!--	<div class="page-header" id="signup"><h2>Sign Up</h2></div> -->
+			<div id="hiddenNotice"></div>
+			<% if (message.length > 0) { %>
+			<p><div class='alert alert-danger'> <%= message %></div></p>
+			<% } %>
+			<div class="page-header" id="signup"><h2>Sign Up</h2></div>
 			<form role="form" id="new-user-form">
 				<div class="form-group">
 					<!-- make new username/password -->

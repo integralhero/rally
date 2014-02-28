@@ -70,8 +70,8 @@ $(document).on("click", "#addUserButton", function(e) {
                 'email': email
             };
             //alert("Added " + name); 
-            $.post('/user/new', json, function() {
-                window.location.href= '/signup';
+            $.post('/user/new', json, function(data) {
+                window.location.href= data.data;
             });
         }                
 });

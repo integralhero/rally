@@ -35,7 +35,7 @@ var userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true},
   passwordUH: { type: String, required: true},
-  email: {type: String, required: true, unqieu: true},
+  email: {type: String, required: true, unique: true},
   imageURL: { type: String},
   friends : [{ type: Schema.Types.ObjectId, ref: 'User' }],
   rallies: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
@@ -358,13 +358,13 @@ app.post('/user/new', function(req, res) {
       //console.log("Added!: "+ form_data);
       function afterSave(err) {
         if(err) {console.log(err); res.send(500);}
-        res.send(200);
+        res.send(200, {data: '/login'});
       }
     }
     else {
       console.log("Got here instead...!");
       req.flash('error', "Username or email already exists. Try again!");
-      res.send(200);
+      res.send(200, {data: '/signup'});
     }
   });
   

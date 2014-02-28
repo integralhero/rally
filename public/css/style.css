@@ -22,6 +22,11 @@ body {
 	padding-left: 10px;
 }
 
+.photoupload {
+	float: right;
+	position: relative;
+}
+
 .log {
 	float: right;
 	padding-right: 10px;

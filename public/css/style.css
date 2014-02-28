@@ -65,11 +65,11 @@ body {
 }
 
 #profilenav {
-	background-color: #f1c40f;
+	background-color: #1abc9c;
 }
 
 #homenav {
-	background-color: #1abc9c;
+	background-color: #f1c40f;
 }
 
 #friendsnav {
@@ -94,7 +94,7 @@ body {
 
 
 .profileColor {
-	color: #f1c40f;
+	color: #f1c40f !important;
 }
 
 .activityColor {

@@ -27,6 +27,10 @@ body {
 	padding-right: 10px;
 }
 
+.unrallybtn {
+	float: right;
+}
+
 .titletext {
 	font-size: 60pt;
 	text-align: center;

@@ -22,6 +22,11 @@ body {
 	padding-left: 10px;
 }
 
+.photoupload {
+	float: right;
+	position: relative;
+}
+
 .log {
 	float: right;
 	padding-right: 10px;
@@ -38,13 +43,18 @@ body {
 }
 .masked{
 	background: url(/img/paint.png) repeat, white;
-
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
 	-webkit-animation-name: masked-animation;
 	-webkit-animation-duration: 40s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
+	-moz-text-fill-color: transparent;
+	-moz-background-clip: text;
+	-moz-animation-name: masked-animation;
+	-moz-animation-duration: 40s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
 }
 @-webkit-keyframes masked-animation {
 	0% {background-position: left bottom;}

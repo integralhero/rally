@@ -7,7 +7,7 @@ var express = require('express')
   , http = require('http')
   , SALT_WORK_FACTOR = 10;
   
-
+var flash = require('connect-flash');
 var local_database_name = 'rallynow';
 var local_database_uri  = 'mongodb://localhost/' + local_database_name
 var database_uri = process.env.MONGOLAB_URI || local_database_uri
@@ -143,6 +143,7 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.session({ secret: 'keyboard cat' }));
+  app.use(flash());
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
@@ -352,7 +353,7 @@ app.get('/friends', function(req, res){
     //return an array of my friends, rendered to friends.ejs
     var friendsIDS = me.friends;
     User.find({_id: {$in: friendsIDS}}, function(err, friends){
-      res.render('friends', {user: req.user, userFriends: friends, message: req.session.messages});
+      res.render('friends', {user: req.user, userFriends: friends, message: req.flash('error')});
     });
   });
 });
@@ -370,13 +371,13 @@ app.post('/friend/new', function(req, res){
         for(var i = 0; i < selfUser.friends.length; i++) {
           if(((selfUser.friends)[i]).equals(friend._id)) {
             console.log("ERROR: FRIEND EXISTS");
-            req.session.messages= "Error, this friend has already been added. Try adding another!";
+            req.flash('error', "Error, this friend has already been added. Try adding another!") ;
             res.send(200);
           }
         }
         if(selfUser._id.equals(friend._id)) {
           console.log("ERROR, TRIED ADDING SELF");
-          req.session.messages = "Error, you can't add yourself. Try again";
+          req.flash('error', "Error, you can't add yourself. Try again");
           res.send(200);
         }
         else {
@@ -388,41 +389,13 @@ app.post('/friend/new', function(req, res){
       });
     }
     else {
-      req.session.messages = "Error, user not found. Try again";
+      req.flash('error', "Error, user not found. Try again") ;
       res.redirect("/");
     }
     
   });
 });
 
-app.post('/activity/new', function(req, res) {
-  var form_data = req.body;
-  //assign this activity to user as well
-  User.find({username: req.user.username}, function(err, result) {
-    if(err) {console.log(err); res.send(500);}
-    var curUser = result[0];
-    console.log("Found current user " + curUser.username+ "---------");
-    curUser.save(function(err){
-      if(err) {console.log(err); res.send(500);}
-      var newActivity = new Activity({
-        "title": form_data['title'],
-        "location": form_data['location'],
-        "date": form_data['date'],
-        "time": form_data['time'],
-        "creator": curUser._id
-      });
-      curUser.rallies.push(newActivity._id);
-      curUser.save();
-      newActivity.ralliers.push(curUser._id);
-      newActivity.save(function(err) {
-        if(err) {console.log(err); res.send(500);}
-        console.log("Added activity: " + newActivity.title + newActivity.location + newActivity.date + newActivity.time);
-        console.log("Yay, saved new activity and added to " + curUser.username);
-        res.send(200);
-      });
-    });
-  });
-});
 
 app.post('/activity/new', function(req, res) {
   var form_data = req.body;
@@ -491,15 +464,9 @@ app.get('/activity/:id', function(req, res) {
   var activityID = req.params.id;
   Activity.find({_id: activityID}, function(err, result){
     var activity = result[0];
-    res.render('specificActivity', {user: req.user, activity: activity});
-  });
-});
-
-app.get('/activity/:id', function(req, res) {
-  var activityID = req.params.id;
-  Activity.find({_id: activityID}, function(err, result){
-    var activity = result[0];
-    res.render('specificActivity', {user: req.user, activity: activity});
+    User.find({_id: {$in: activity.ralliers}},function(err, query) {
+      res.render('specificActivity', {user: req.user, activity: activity, ralliers: query});
+    });
   });
 });
 

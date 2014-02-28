@@ -1,7 +1,7 @@
 <% layout('layout') -%>
 <div class="col-xs-12">
-	<% if (message) { %>
-	<p><%= message %></p>
+	<% if (message.length > 0) { %>
+	<p><div class='alert alert-danger'> <%= message%></div></p>
 	<% } %>
 	<h1>Your Friends!</h1>
 					<button class="btn btn-success btn-lg friendsBackgroundColor" data-toggle="modal" data-target="#friendModal">

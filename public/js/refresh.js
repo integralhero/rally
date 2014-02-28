@@ -91,9 +91,11 @@ $(document).on("click", "#addActivityButton", function(e) {
                 'time': activityTime
             };
             $.post('/activity/new', json, function() {
-                window.location.href = '/account/'; // reload the page
+                //window.location.href = '/account/'; // reload the page
+                $("#myModal").modal('hide');
+                $("#hiddenNotice").html("<div class='alert alert-success'> Congratulations! New activity added</div>");
             });
-            $("#hiddenNotice").html("Added new activity " + activityName);
+            
         }                
 });
 
@@ -140,6 +142,7 @@ $(document).on("click", "#addFriendButton", function(e) {
             };
             $.post('/friend/new', json, function() {
                 window.location.href = '/friends'; // reload the page
+                //$("#hiddenNotice").html("<div class='alert alert-success'> Congratulations! Added " + friendName +  " successfully</div>");
             });
         }                
 });

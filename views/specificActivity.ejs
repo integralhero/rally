@@ -44,17 +44,28 @@
                   </div>
                 </div><!-- End Modal -->
 </div>
+
 <div class="row-fluid">
-	<div class="col-xs-12">
+	<div class="col-md-12">
 
 		<h1 class="activityColor"> <%=activity.title%> <BR> <small>Followers: <%= activity.ralliers.length %></small></h1>
+      <h3>Ralliers:</h3>
+              <div>
+                <ul id="ralliers" style="list-style-type: none;">
+                  <% if(ralliers.length == 0) {%>
+                    Sorry, looks like nobody is following this rally (except for the creator).
+                  <% } %>
+                  <% for(var i = 0; i < ralliers.length; i++) {%>
+                    <li style="display: inline;"><a href="/user/<%= ralliers[i]._id %>"><img class="img-circle" width="100px" height="100px" src="<%= ralliers[i].imageURL %>"></a>
+                      <p><%= ralliers[i].username %></p>
+                    </li>
+                  <% } %>
+                </ul>
+              </div>
 		   	<div class="description">
                 <p>Location: <%= activity.location %><br>
                  Date: <%= activity.date %><br>
                  Time: <%= activity.time %></p>
-                 <p>
-                 I think we should add a description here that will only show up once you click that specific rally.
-                 </p>
                  <% if(user._id.equals(activity.creator)) { %>
                  <form id="deleteActivityForm" method="post" action="/activity/delete">
                     <input type="hidden" id="hiddenID" name="hiddenID" value="<%= activity._id%>">
@@ -67,3 +78,4 @@
 
 	</div>
 </div>
+

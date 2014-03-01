@@ -6,12 +6,19 @@ var express = require('express')
   , bcrypt = require('bcrypt')
   , http = require('http')
   , SALT_WORK_FACTOR = 10;
-  
+
+var cloudinary = require('cloudinary');
 var flash = require('connect-flash');
 var local_database_name = 'rallynow';
 var local_database_uri  = 'mongodb://localhost/' + local_database_name
 var database_uri = process.env.MONGOLAB_URI || local_database_uri
 mongoose.connect(database_uri);
+
+cloudinary.config({ 
+  cloud_name: 'dqoghmerz', 
+  api_key: '584839643982217', 
+  api_secret: 'vLp3SltT9L9TkQGbhiZwNUOytAw' 
+});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -216,22 +223,15 @@ var fs = require('fs');
 app.post('/file-upload', function(req, res) {
     // get the temporary location of the file
     var tmp_path = req.files.profPic.path;
-    // set where the file should actually exists - in this case it is in the "images" directory
-    var target_path = './public/images/' + req.files.profPic.name;
-    // move the file from the temporary location to the intended location
-    User.find({username: req.user.username}, function(err, result) {
-      var curUser = result[0];
-      var imagePath = "/images/" + req.files.profPic.name;
-      curUser.imageURL = imagePath;
-      curUser.save();
+    cloudinary.uploader.upload(tmp_path, function(fileUp){
+      User.find({username: req.user.username}, function(err, result) {
+        var curUser = result[0];
+        curUser.imageURL = fileUp.url;
+        curUser.save();
+        res.redirect('/account');
+      });
     });
-    fs.rename(tmp_path, target_path, function(err) {
-        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
-        fs.unlink(tmp_path, function() {
-            if (err) throw err;
-            res.redirect('/account');
-        });
-    });
+    
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
@@ -279,7 +279,7 @@ app.post('/rally', function(req, res) {
       });
   });
 });
-
+/*
 app.post('/unrally', function(req, res) {
   var form_data = req.body;
   var rallyID = form_data["data-id"];
@@ -292,7 +292,20 @@ app.post('/unrally', function(req, res) {
       });
   });
 });
+*/
 
+app.post('/activity/unrally', function(req, res) {
+  var rallyid = req.body['rally_id'].toString();
+  
+  console.log("userid we're pulling from " + req.user._id + " what we're pulling " + rallyid);
+  User.findByIdAndUpdate(req.user._id, {$pull: {rallies: rallyid}}, function(opt) {
+    Activity.findByIdAndUpdate(rallyid, {$pull: {ralliers: req.user._id}}, function(opttwo) {
+      res.send(200);
+    });
+  });
+  
+  
+});
 
 app.post('/activity/edit', function(req, res) {
   var actID = req.body.idNumber;

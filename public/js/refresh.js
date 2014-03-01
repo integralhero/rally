@@ -75,7 +75,7 @@ $(document).on("click", "#addUserButton", function(e) {
             });
         }                
 });
-
+/*
 $(document).on("click", ".unrallybtn", function(e) {
     e.preventDefault();
     var dataID = $(this).closest(".activity").attr("data-id");
@@ -86,7 +86,7 @@ $(document).on("click", ".unrallybtn", function(e) {
         window.location.href = '/'; // reload the page
     });
 });
-
+*/
 
 $(document).on("click", "#emailButton", function(e) { 
         var email = $('#emailField').val();
@@ -153,6 +153,17 @@ $(document).on("click", ".rallyBtn", function(e) {
     $.post('/rally', json, function() {
         window.location.href = '/'; // reload the page
     });
+});
+
+
+$(document).on("click", "#unrallyButton", function(e) { 
+    var rallyID = $('#rally_id_hidden').val(); 
+    var json = {
+        'rally_id': rallyID
+    };
+    $.post('/activity/unrally', json, function() {
+        window.location.href='/account';
+    });          
 });
 
 $(document).on("click", "#addFriendButton", function(e) { 

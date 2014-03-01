@@ -28,7 +28,11 @@ Upload a new picture:
 <section>
 <% for(var i=0; i<joined.length; i++) {%>
 	<div class="activityProf">
-   			<h3 class=activityColor><a href="/activity/<%= joined[i]._id%>"><%= joined[i].title %></a><button type="button" class="btn unrallybtn btn-danger">Unrally</button></h3>
+   			<h3 class=activityColor><a href="/activity/<%= joined[i]._id%>"><%= joined[i].title %></a>
+        <form>
+          <input type="hidden" value="<%= joined[i]._id%>" name="rally_id" id="rally_id_hidden">
+          <button type="button" id="unrallyButton" class="btn unrallybtn btn-danger">Unrally</button></h3>
+        </form>
    			<div class="description">
                            <p><%= joined[i].location %><br>
                           <%=(new Date(joined[i].date)).getMonth()+1+"/"+(new Date(joined[i].date)).getDate()+"/"+(new Date(joined[i].date)).getFullYear()%>, <%= joined[i].time %><br>

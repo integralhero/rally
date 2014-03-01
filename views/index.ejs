@@ -58,6 +58,9 @@
 	<div class="container-fluid center">
 		<h2>Hey, <%= user.username %>!</h2>
 		<div id="hiddenNotice"></div>
+		<% if (success.length > 0) { %>
+		<p><div class='alert alert-success'> <%= success%></div></p>
+		<% } %>
 		<div class="row">
 			<div class="col-xs-12">
 				<!-- Button trigger modal -->

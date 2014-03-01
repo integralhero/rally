@@ -3,6 +3,9 @@
 	<% if (message.length > 0) { %>
 	<p><div class='alert alert-danger'> <%= message%></div></p>
 	<% } %>
+	<% if (success.length > 0) { %>
+	<p><div class='alert alert-success'> <%= success%></div></p>
+	<% } %>
 	<h1>Your Friends!</h1>
 					<button class="btn btn-success btn-lg friendsBackgroundColor" data-toggle="modal" data-target="#friendModal">
 				  Add a Friend  <i class="fa fa-plus fa-1x" ></i>

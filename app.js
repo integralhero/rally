@@ -169,11 +169,11 @@ app.get('/', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error')});
+        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
-    res.render('index', { user: req.user , message: req.flash('error')});
+    res.render('index', { user: req.user , message: req.flash('error'), success:req.flash('success')});
 }
 });
 
@@ -246,7 +246,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
       query.exec(function (err, activities) {
         //console.log(activity.title);
         Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
-          res.render('account', { user: req.user, userRallies: activities, joined: acts});
+          res.render('account', { user: req.user, userRallies: activities, joined: acts, success: req.flash('success')});
         });
         
       })
@@ -275,6 +275,7 @@ app.post('/rally', function(req, res) {
         curUser.save();
         activity.ralliers.push(curUser._id);
         activity.save();
+        req.flash('success', "Success! Rally added");
         res.send(200);
       });
   });
@@ -300,6 +301,7 @@ app.post('/activity/unrally', function(req, res) {
   console.log("userid we're pulling from " + req.user._id + " what we're pulling " + rallyid);
   User.findByIdAndUpdate(req.user._id, {$pull: {rallies: rallyid}}, function(opt) {
     Activity.findByIdAndUpdate(rallyid, {$pull: {ralliers: req.user._id}}, function(opttwo) {
+      req.flash('success', "Successfully unrallied!");
       res.send(200);
     });
   });
@@ -348,6 +350,7 @@ app.post('/activity/delete', function(req, res) {
     }
     else {
       console.log(actID + " removed!");
+      req.flash('success', "Success! Activity removed");
       res.redirect('/account');
     }
   }); 
@@ -391,7 +394,7 @@ app.get('/friends', function(req, res){
     //return an array of my friends, rendered to friends.ejs
     var friendsIDS = me.friends;
     User.find({_id: {$in: friendsIDS}}, function(err, friends){
-      res.render('friends', {user: req.user, userFriends: friends, message: req.flash('error')});
+      res.render('friends', {user: req.user, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
     });
   });
 });
@@ -422,6 +425,7 @@ app.post('/friend/new', function(req, res){
         else {
           selfUser.friends.push(friend._id);
           selfUser.save();
+          req.flash('success', "Friend successfully added!");
           res.send(200);
         }
         

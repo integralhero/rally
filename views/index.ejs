@@ -134,26 +134,8 @@
 				<% for(var i=0; i<allActivities.length; i++) {%>
 					<div class="activity" data-id="<%= allActivities[i]._id %>">
 				   			<h3 class=activityColor><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></h3>
-				   			<%var userHasRallyAlready = false%>
-				   			 <p>number of ralliers to this rally: <%=allActivities[i].ralliers.length%></p>
-				   			<%for(var j = 0; j < allActivities[i].ralliers.length; j++) { %>
-				   							   				<p>i/user id/rallier[i] : <%=j%>/<%=user._id%>/<%=allActivities[i].ralliers[j]%></p>
-
-				   				<%var a = JSON.stringify(allActivities[i].ralliers[j]);
-				   					var b = JSON.stringify(user._id);
-				   				if(a === b) {
-				   					userHasRallyAlready = true;
-				   				}%>
-				   				userHasRally right now in the for loop equals: <%=userHasRallyAlready%>
-				   			<%}%>
-				   			<%if(userHasRallyAlready) {%>
-				   			<h1>since "userHasRallyAlready" = <%=userHasRallyAlready%> the button is grey</h1>
-				   			<button type="button" class="btn btn-success rallyBtn pull-right greyBackgroundColor">Rally</button>
-				   			<%} else {%> 
-				   			<h1>since "userHasRallyAlready" = <%=userHasRallyAlready%> the button is green</h1>
-				   			<button type="button" class="btn btn-success rallyBtn pull-right">Rally!</button>
-				   			<% } %>
 				   			
+				   			<button type="button" class="btn btn-success rallyBtn pull-right">Rally!</button>
    							<div class="description">
 	                           <p>Location: <%= allActivities[i].location %><br>
 	                           Date: <%= allActivities[i].date %><br>

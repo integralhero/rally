@@ -173,7 +173,7 @@ app.get('/', function(req, res){
       });
     });
   } else {
-    res.render('index', { user: req.user , message: req.flash('error'), success:req.flash('success')});
+    res.render('index', { user: req.user , grid: false,message: req.flash('error'), success:req.flash('success')});
 }
 }); 
 
@@ -191,7 +191,7 @@ app.get('/grid', function(req, res){
       });
     });
   } else {
-    res.render('index', { user: req.user , message: req.flash('error'), success:req.flash('success')});
+    res.render('index', { user: req.user , grid: false, message: req.flash('error'), success:req.flash('success')});
 }
 });
 
@@ -264,22 +264,22 @@ app.get('/account', ensureAuthenticated, function(req, res){
       query.exec(function (err, activities) {
         //console.log(activity.title);
         Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
-          res.render('account', { user: req.user, userRallies: activities, joined: acts, success: req.flash('success')});
+          res.render('account', { user: req.user, grid: false, userRallies: activities, joined: acts, success: req.flash('success')});
         });
         
       })
     });
   } else {
-    res.render('account', { user: req.user});
+    res.render('account', { user: req.user, grid: false});
   }
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user, message: req.flash('error')});
+  res.render('login', { user: req.user, grid: false, message: req.flash('error')});
 });
 
 app.get('/signup', function(req, res){
-  res.render('signup', { user: req.user, message: req.flash('error')});
+  res.render('signup', { user: req.user, grid: false, message: req.flash('error')});
 });
 
 app.post('/rally', function(req, res) {
@@ -412,7 +412,7 @@ app.get('/friends', function(req, res){
     //return an array of my friends, rendered to friends.ejs
     var friendsIDS = me.friends;
     User.find({_id: {$in: friendsIDS}}, function(err, friends){
-      res.render('friends', {user: req.user, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
+      res.render('friends', {user: req.user, grid: false, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
     });
   });
 });
@@ -526,7 +526,7 @@ app.get('/activity/:id', function(req, res) {
   Activity.find({_id: activityID}, function(err, result){
     var activity = result[0];
     User.find({_id: {$in: activity.ralliers}},function(err, query) {
-      res.render('specificActivity', {user: req.user, activity: activity, ralliers: query});
+      res.render('specificActivity', {user: req.user, grid: false, activity: activity, ralliers: query});
     });
   });
 });
@@ -537,7 +537,7 @@ app.get('/user/:id', function(req, res) {
   User.find({_id: userID}, function(err, result){
     var friend = result[0];
     Activity.find({_id: {$in: friend.rallies}} , function(err, acts){
-      res.render('specificFriend', {user: req.user, friend: friend, friendRallies: acts});
+      res.render('specificFriend', {user: req.user, grid: false, friend: friend, friendRallies: acts});
     });
   });
 });

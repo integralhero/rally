@@ -180,7 +180,7 @@ app.get('/', function(req, res){
 
 
 app.get('/grid', function(req, res){
-  hasGrid = true;
+  //hasGrid = true;
   if(req.isAuthenticated()) {
     User.find({username: req.user.username}, function(err, result) {
       if(err) {console.log(err); res.send(500);}

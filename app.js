@@ -5,6 +5,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , bcrypt = require('bcrypt')
   , http = require('http')
+  , hasGrid = false
   , SALT_WORK_FACTOR = 10;
 
 var cloudinary = require('cloudinary');
@@ -169,16 +170,17 @@ app.get('/', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, grid: false, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user, grid: hasGrid, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
-    res.render('index', { user: req.user , grid: false,message: req.flash('error'), success:req.flash('success')});
+    res.render('index', { user: req.user , grid: hasGrid,message: req.flash('error'), success:req.flash('success')});
 }
 }); 
 
 
 app.get('/grid', function(req, res){
+  hasGrid = true;
   if(req.isAuthenticated()) {
     User.find({username: req.user.username}, function(err, result) {
       if(err) {console.log(err); res.send(500);}
@@ -187,11 +189,11 @@ app.get('/grid', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, grid: true, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user, grid: hasGrid, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
-    res.render('index', { user: req.user , grid: false, message: req.flash('error'), success:req.flash('success')});
+    res.render('index', { user: req.user , grid: hasGrid, message: req.flash('error'), success:req.flash('success')});
 }
 });
 
@@ -264,22 +266,22 @@ app.get('/account', ensureAuthenticated, function(req, res){
       query.exec(function (err, activities) {
         //console.log(activity.title);
         Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
-          res.render('account', { user: req.user, grid: false, userRallies: activities, joined: acts, success: req.flash('success')});
+          res.render('account', { user: req.user, grid: hasGrid, userRallies: activities, joined: acts, success: req.flash('success')});
         });
         
       })
     });
   } else {
-    res.render('account', { user: req.user, grid: false});
+    res.render('account', { user: req.user, grid: hasGrid});
   }
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user, grid: false, message: req.flash('error')});
+  res.render('login', { user: req.user, grid: hasGrid, message: req.flash('error')});
 });
 
 app.get('/signup', function(req, res){
-  res.render('signup', { user: req.user, grid: false, message: req.flash('error')});
+  res.render('signup', { user: req.user, grid: hasGrid, message: req.flash('error')});
 });
 
 app.post('/rally', function(req, res) {
@@ -412,7 +414,7 @@ app.get('/friends', function(req, res){
     //return an array of my friends, rendered to friends.ejs
     var friendsIDS = me.friends;
     User.find({_id: {$in: friendsIDS}}, function(err, friends){
-      res.render('friends', {user: req.user, grid: false, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
+      res.render('friends', {user: req.user, grid: hasGrid, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
     });
   });
 });
@@ -526,7 +528,7 @@ app.get('/activity/:id', function(req, res) {
   Activity.find({_id: activityID}, function(err, result){
     var activity = result[0];
     User.find({_id: {$in: activity.ralliers}},function(err, query) {
-      res.render('specificActivity', {user: req.user, grid: false, activity: activity, ralliers: query});
+      res.render('specificActivity', {user: req.user, grid: hasGrid, activity: activity, ralliers: query});
     });
   });
 });
@@ -537,7 +539,7 @@ app.get('/user/:id', function(req, res) {
   User.find({_id: userID}, function(err, result){
     var friend = result[0];
     Activity.find({_id: {$in: friend.rallies}} , function(err, acts){
-      res.render('specificFriend', {user: req.user, grid: false, friend: friend, friendRallies: acts});
+      res.render('specificFriend', {user: req.user, grid: hasGrid, friend: friend, friendRallies: acts});
     });
   });
 });

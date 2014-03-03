@@ -266,13 +266,13 @@ app.get('/account', ensureAuthenticated, function(req, res){
       query.exec(function (err, activities) {
         //console.log(activity.title);
         Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
-          res.render('account', { user: req.user, grid: hasGrid, userRallies: activities, joined: acts, success: req.flash('success')});
+          res.render('account', { user: req.user, userRallies: activities, joined: acts, success: req.flash('success')});
         });
         
       })
     });
   } else {
-    res.render('account', { user: req.user, grid: hasGrid});
+    res.render('account', { user: req.user});
   }
 });
 
@@ -414,7 +414,7 @@ app.get('/friends', function(req, res){
     //return an array of my friends, rendered to friends.ejs
     var friendsIDS = me.friends;
     User.find({_id: {$in: friendsIDS}}, function(err, friends){
-      res.render('friends', {user: req.user, grid: hasGrid, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
+      res.render('friends', {user: req.user, userFriends: friends, message: req.flash('error'), success: req.flash('success')});
     });
   });
 });

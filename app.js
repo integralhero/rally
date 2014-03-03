@@ -169,13 +169,14 @@ app.get('/', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user, grid: false, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
     res.render('index', { user: req.user , message: req.flash('error'), success:req.flash('success')});
 }
-});
+}); 
+
 
 app.get('/grid', function(req, res){
   if(req.isAuthenticated()) {
@@ -186,7 +187,7 @@ app.get('/grid', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user, grid: true, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {

@@ -38,12 +38,12 @@ $(function() {
     console.log("OMG---------->>>>> "+location.pathname.split("/")[1] +"<<<<-------||");
     //console.log($('nav a[href^="/' + location.pathname.split("/")[1] + '"]');
     if(location.pathname.split("/")[1] == "") {
-        $("#homenav").addClass('active');
+        $("#home").addClass('active');
     } else if(location.pathname.split("/")[1] == "account"){
-        $("#profilenav").addClass('active');
+        $("#account").addClass('active');
     } else if(location.pathname.split("/")[1] == "friends"){
         console.log("Test!");
-        $("#friendsnav").addClass('active');
+        $("#friends").addClass('active');
     }
 });
 

@@ -36,9 +36,9 @@ body {
 	float: right;
 }
 
-.rallyBtn {
-	float: right;
+.rallyBtn  {
 	clear: both;
+	position: relative;
 }
 
 .titletext {
@@ -142,10 +142,19 @@ body {
 
 
 .activity {
-	width: auto;
-	border-radius: 2px;
+	width: 50%;
 	background-color: white;
-	text-align: left;
+	text-align: center;
+	float: left;
+	border: 1px solid #cdcdcd;
+	padding-right: 5px;
+	padding-left: 5px;
+
+}
+
+.activity h3 {
+	font-size: 20px;
+	margin-top: 2px;
 }
 
 .all-activities {
@@ -154,10 +163,9 @@ body {
 
 
 .description {
-	float:left;
-	position: absolute;
-	text-align: left;
+	position: relative;
 	font-weight: lighter;
+	font-size: 10px;
 }
 
 .friendSmall {

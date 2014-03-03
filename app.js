@@ -177,6 +177,23 @@ app.get('/', function(req, res){
 }
 });
 
+app.get('/grid', function(req, res){
+  if(req.isAuthenticated()) {
+    User.find({username: req.user.username}, function(err, result) {
+      if(err) {console.log(err); res.send(500);}
+      var curUser = result[0];
+      var friendsIDS = curUser.friends;
+      Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
+        console.log("printing list of activities" + acts);
+
+        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+      });
+    });
+  } else {
+    res.render('index', { user: req.user , message: req.flash('error'), success:req.flash('success')});
+}
+});
+
 var nodemailer = require("nodemailer");
 
 var smtpTransport = nodemailer.createTransport("SMTP",{

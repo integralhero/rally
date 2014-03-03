@@ -133,13 +133,13 @@
 				<div class="all-activities">
 				<% for(var i=0; i<allActivities.length; i++) {%>
 					<div class="activity" data-id="<%= allActivities[i]._id %>">
-				   			<h3 class=activityColor><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></h3>
+				   			<h3 class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></h3>
 				   			
-				   			<button type="button" class="btn btn-success rallyBtn pull-right">Rally!</button>
+				   			<button type="button" class="btn btn-success rallyBtn">Rally!</button>
    							<div class="description">
-	                           <p>Location: <%= allActivities[i].location %><br>
-	                           Date: <%= allActivities[i].date %><br>
-	                           Time: <%= allActivities[i].time %></p>
+						Location: <%= allActivities[i].location %><br>
+                          <%=(new Date(allActivities[i].date)).getMonth()+1+"/"+(new Date(allActivities[i].date)).getDate()+"/"+(new Date(allActivities[i].date)).getFullYear()%>, <%= allActivities[i].time %>
+                           
    							</div>
 
 				   	</div><br><br>
@@ -150,3 +150,4 @@
 		</div><!-- End Row -->
 	</div> <!-- End Container -->
 <% } %>
+

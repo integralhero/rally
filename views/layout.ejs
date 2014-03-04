@@ -2,11 +2,17 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Rally</title>
-	<link rel="apple-touch-icon" href="images/icon.jpg"/>
-	<link rel="apple-touch-startup-image" href="images/splash.jpg" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- standard viewport tag to set the viewport to the device's width
+	, Android 2.3 devices need this so 100% width works properly and
+	doesn't allow children to blow up the viewport width-->
+	<meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+	<!-- width=device-width causes the iPhone 5 to letterbox the app, so
+		we want to exclude it for iPhone 5 to allow full screen apps -->
+	<meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+	<!-- provide the splash screens for iPhone 5 and previous -->
+	<link href="images/splash.png" rel="apple-touch-startup-image" media="(device-height: 568px)">
+	<link href="images/splash.png" rel="apple-touch-startup-image" sizes="640x960" media="(device-height: 480px)">
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">

@@ -145,6 +145,7 @@ $(document).on("click", "#addActivityButton", function(e) {
 
 
 $(document).on("click", ".rallyBtn", function(e) {
+    ga("send", "event", "rally", "click");
     e.preventDefault();
     var dataID = $(this).closest(".activity").attr("data-id");
     var json = {

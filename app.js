@@ -169,7 +169,7 @@ app.get('/', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user,  allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user,  hasGrid: false, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
@@ -188,7 +188,7 @@ app.get('/grid', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user, hasGrid: true, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {

@@ -347,10 +347,13 @@ app.post('/activity/delete', function(req, res) {
       res.send(500);
     }
     else {
-      User.update({}, {$pull: {rallies: actID}});
-      console.log(actID + " removed!");
-      req.flash('success', "Success! Activity removed");
-      res.redirect('/account');
+      User.update({}, {$pull: {rallies: actID}}, function(err) {
+        if(err) res.send(500);
+        console.log(actID + " removed!");
+        req.flash('success', "Success! Activity removed");
+        res.redirect('/account');
+      });
+      
     }
   }); 
 });

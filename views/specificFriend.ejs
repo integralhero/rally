@@ -12,7 +12,7 @@
 		<% 
 		var isFriend = false;
 		for(var i = 0; i < user.friends.length; i++) { 
-			if(user.friends[i] == friend._id) {
+			if(user.friends[i].toString() == friend._id.toString()) {
 				isFriend = true;
 			}
 		} 

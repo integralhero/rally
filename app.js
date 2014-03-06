@@ -326,6 +326,19 @@ app.post('/activity/unrally', function(req, res) {
   });
 });
 
+app.post('/user/delete', function(req, res) {
+  var yourid = req.body['yourID'].toString();
+  var friendid = req.body['friendID'].toString();
+  User.update({_id: yourid}, {$pull:{friends: friendid}}, function(err) {
+    if(err) res.send(500);
+    else {
+      req.flash('success', "Success! Friend removed");
+      res.redirect('/friends');
+    }
+  });
+  
+});
+
 app.post('/activity/delete', function(req, res) {
   var actID = req.body.hiddenID;
   Activity.remove({_id: actID}, function(err) {

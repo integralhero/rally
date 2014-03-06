@@ -1,12 +1,13 @@
 <% layout('layout') -%>
-<center>
+
 <div id="hiddenNotice"></div>
 <% if (success.length > 0) { %>
   <p><div class='alert alert-success'> <%= success%></div></p>
   <% } %>
+
 <img width="75px" height=auto style= "float: left " src="<%= user.imageURL %>" alt="profpic" class="img-rounded"><BR>
-</center>
-<h1 style="float: left"><%= user.username %></h1>
+<BR>
+<h1 style=""><%= user.username %></h1>
 <div class="photoupload">
 Upload a new picture:
   <form method="post" enctype="multipart/form-data" action="/file-upload">

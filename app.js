@@ -317,15 +317,29 @@ app.post('/unrally', function(req, res) {
 app.post('/activity/unrally', function(req, res) {
   var rallyid = req.body['rally_id'].toString();
   
-  console.log("userid we're pulling from " + req.user._id + " what we're pulling " + rallyid);
+  //console.log("userid we're pulling from " + req.user._id + " what we're pulling " + rallyid);
   User.findByIdAndUpdate(req.user._id, {$pull: {rallies: rallyid}}, function(opt) {
     Activity.findByIdAndUpdate(rallyid, {$pull: {ralliers: req.user._id}}, function(opttwo) {
       req.flash('success', "Successfully unrallied!");
       res.send(200);
     });
   });
-  
-  
+});
+
+app.post('/activity/delete', function(req, res) {
+  var actID = req.body.hiddenID;
+  Activity.remove({_id: actID}, function(err) {
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      User.update({}, {$pull: {rallies: actID}});
+      console.log(actID + " removed!");
+      req.flash('success', "Success! Activity removed");
+      res.redirect('/account');
+    }
+  }); 
 });
 
 app.post('/activity/edit', function(req, res) {
@@ -354,23 +368,6 @@ app.post('/activity/edit', function(req, res) {
           res.redirect('/account');
         }
       }
-    }
-  }); 
-});
-
-
-
-app.post('/activity/delete', function(req, res) {
-  var actID = req.body.hiddenID;
-  Activity.remove({_id: actID}, function(err) {
-    if(err) {
-      console.log(err);
-      res.send(500);
-    }
-    else {
-      console.log(actID + " removed!");
-      req.flash('success', "Success! Activity removed");
-      res.redirect('/account');
     }
   }); 
 });

@@ -5,10 +5,27 @@
 				  <i class="fa fa-arrow-left fa-1x" ></i> 
 </button>
 </a>
-	<div class="col-xs-12">
+	<div class="col-md-12">
+		<BR>
 		<img width="300px" height="auto" src="<%= friend.imageURL %>">
 		<h1 class=friendsColor>Your buddy: <%=friend.username%></h1>
-
+		<% 
+		var isFriend = false;
+		for(var i = 0; i < user.friends.length; i++) { 
+			if(user.friends[i] == friend._id) {
+				isFriend = true;
+			}
+		} 
+		%>
+		<% if(isFriend) { %>
+			<form id="deleteFriendForm" method="post" action="/user/delete">
+				<input type="hidden" id="yourID" name="yourID" value="<%= user._id%>">
+                <input type="hidden" id="friendID" name="friendID" value="<%= friend._id%>">
+                <button class="btn btn-danger btn-lg" id="deleteFriend">
+                  Un-friend  </i>
+                </button>
+             </form>
+		<% } %>
 		<h4>Check out what your friend is up to:</h4>
 		<ul>
 			<% for(var i = 0; i < friendRallies.length; i++) { %>

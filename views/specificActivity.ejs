@@ -56,8 +56,8 @@
                     Sorry, looks like nobody is following this rally (except for the creator).
                   <% } %>
                   <% for(var i = 0; i < ralliers.length; i++) {%>
-                    <li style="display: inline;"><a href="/user/<%= ralliers[i]._id %>"><img class="img-circle" width="100px" height="100px" src="<%= ralliers[i].imageURL %>"></a>
-                      <p><%= ralliers[i].username %></p>
+                    <li style="display: inline-block;"><a href="/user/<%= ralliers[i]._id %>"><img class="img-circle" width="100px" height="100px" src="<%= ralliers[i].imageURL %>"></a>
+                      <center><%= ralliers[i].username %></center>
                     </li>
                   <% } %>
                 </ul>

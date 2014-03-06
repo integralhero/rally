@@ -21,7 +21,12 @@ body {
     font-weight: lighter;
 	padding-left: 10px;
 }
-
+#friended {
+	overflow-x: scroll;
+    overflow-y: hidden;
+    height: 150px;
+    white-space:nowrap
+}
 .photoupload {
 }
 

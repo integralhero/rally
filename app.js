@@ -265,7 +265,9 @@ app.get('/account', ensureAuthenticated, function(req, res){
       query.exec(function (err, activities) {
         //console.log(activity.title);
         Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
-          res.render('account', { user: req.user, userRallies: activities, joined: acts, success: req.flash('success')});
+          User.find({friends: {$in: [req.user._id]}}, function(err, friends) {
+            res.render('account', { user: req.user, friendsArr: friends, userRallies: activities, joined: acts, success: req.flash('success')});
+          });
         });
         
       })

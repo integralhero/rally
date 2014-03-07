@@ -166,10 +166,10 @@ app.get('/', function(req, res){
       if(err) {console.log(err); res.send(500);}
       var curUser = result[0];
       var friendsIDS = curUser.friends;
-      Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
+      Activity.find({$and: [{creator: {$in: friendsIDS}}, {date: {$gt : new Date()}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user,  allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user,  hasGrid: false, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
@@ -188,7 +188,7 @@ app.get('/grid', function(req, res){
       Activity.find({$and: [{creator: {$in: friendsIDS}}, {_id: {$nin: curUser.rallies}}]} , function(err, acts){ //just after $in term put a comma then, , {_id: {$nin: curUser.rallies}}
         console.log("printing list of activities" + acts);
 
-        res.render('index', {user: req.user, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
+        res.render('index', {user: req.user, hasGrid: true, allActivities: acts, message: req.flash('error'), success: req.flash('success')});
       });
     });
   } else {
@@ -265,7 +265,9 @@ app.get('/account', ensureAuthenticated, function(req, res){
       query.exec(function (err, activities) {
         //console.log(activity.title);
         Activity.find({_id: {$in: curUser.rallies}} , function(err, acts){
-          res.render('account', { user: req.user, userRallies: activities, joined: acts, success: req.flash('success')});
+          User.find({friends: {$in: [req.user._id]}}, function(err, friends) {
+            res.render('account', { user: req.user, friendsArr: friends, userRallies: activities, joined: acts, success: req.flash('success')});
+          });
         });
         
       })
@@ -317,15 +319,45 @@ app.post('/unrally', function(req, res) {
 app.post('/activity/unrally', function(req, res) {
   var rallyid = req.body['rally_id'].toString();
   
-  console.log("userid we're pulling from " + req.user._id + " what we're pulling " + rallyid);
+  //console.log("userid we're pulling from " + req.user._id + " what we're pulling " + rallyid);
   User.findByIdAndUpdate(req.user._id, {$pull: {rallies: rallyid}}, function(opt) {
     Activity.findByIdAndUpdate(rallyid, {$pull: {ralliers: req.user._id}}, function(opttwo) {
       req.flash('success', "Successfully unrallied!");
       res.send(200);
     });
   });
+});
+
+app.post('/user/delete', function(req, res) {
+  var yourid = req.body['yourID'].toString();
+  var friendid = req.body['friendID'].toString();
+  User.update({_id: yourid}, {$pull:{friends: friendid}}, function(err) {
+    if(err) res.send(500);
+    else {
+      req.flash('success', "Success! Friend removed");
+      res.redirect('/friends');
+    }
+  });
   
-  
+});
+
+app.post('/activity/delete', function(req, res) {
+  var actID = req.body.hiddenID;
+  Activity.remove({_id: actID}, function(err) {
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      User.update({}, {$pull: {rallies: actID}}, function(err) {
+        if(err) res.send(500);
+        console.log(actID + " removed!");
+        req.flash('success', "Success! Activity removed");
+        res.redirect('/account');
+      });
+      
+    }
+  }); 
 });
 
 app.post('/activity/edit', function(req, res) {
@@ -354,23 +386,6 @@ app.post('/activity/edit', function(req, res) {
           res.redirect('/account');
         }
       }
-    }
-  }); 
-});
-
-
-
-app.post('/activity/delete', function(req, res) {
-  var actID = req.body.hiddenID;
-  Activity.remove({_id: actID}, function(err) {
-    if(err) {
-      console.log(err);
-      res.send(500);
-    }
-    else {
-      console.log(actID + " removed!");
-      req.flash('success', "Success! Activity removed");
-      res.redirect('/account');
     }
   }); 
 });

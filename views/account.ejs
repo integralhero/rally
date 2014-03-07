@@ -1,20 +1,35 @@
 <% layout('layout') -%>
-<center>
+
 <div id="hiddenNotice"></div>
 <% if (success.length > 0) { %>
   <p><div class='alert alert-success'> <%= success%></div></p>
   <% } %>
-<img width="75px" height=auto style= "float: left " src="<%= user.imageURL %>" alt="profpic" class="img-rounded"><BR>
-</center>
-<h1 style="float: left"><%= user.username %></h1>
-<div class="photoupload">
-Upload a new picture:
+
+<a id="showUpload" href="#"><img width="75px" height=auto style= "float: left " src="<%= user.imageURL %>" alt="profpic" class="img-rounded"></a>
+
+<div class="photoupload" style="display:none;">
   <form method="post" enctype="multipart/form-data" action="/file-upload">
       <input type="file" name="profPic">
       <input type="submit" class="btn btn-success btn-sm">
   </form>
-</div><br><br><br>
-<h3 style> Rallies you've created... </h3>
+</div>
+<BR>
+<BR>
+<div>
+<h1 style=""><%= user.username %></h1>
+<h3> People who have friended you: </h3>
+<% if(friendsArr.length == 0) {%>
+ Looks like nobody is following you...
+<% } %>
+<div id="friended">
+<% for(var j = 0; j < friendsArr.length; j++) {%>
+  <li style="display: inline-block;"><a href="/user/<%= friendsArr[j]._id %>"><img class="img-circle" width="100px" height="100px" src="<%= friendsArr[j].imageURL %>"></a>
+                      <center><%= friendsArr[j].username %></center>
+  </li>
+<% } %>
+</div>
+<BR>
+<h3> Rallies you've created: </h3>
 <section>
 <% for(var i=0; i<userRallies.length; i++) {%>
 	<div class="activityProf">
@@ -27,7 +42,7 @@ Upload a new picture:
    	</div><br><br>
 <% } %> 
 <BR>
-<h3> Rallies you've joined... </h3>
+<h3> Rallies you've joined: </h3>
 <section>
 <% for(var i=0; i<joined.length; i++) {%>
 	<div class="activityProf">
@@ -44,5 +59,6 @@ Upload a new picture:
    	</div><br><br>
 <% } %> 
 </section>
+</div>
 
 

@@ -5,15 +5,39 @@
 				  <i class="fa fa-arrow-left fa-1x" ></i> 
 </button>
 </a>
-	<div class="col-xs-12">
+	<div class="col-md-12">
+		<BR>
 		<img width="300px" height="auto" src="<%= friend.imageURL %>">
-		<h1 class=friendsColor>Your buddy: <%=friend.username%></h1>
-
-		<h4>Check out what your friend is up to:</h4>
-		<ul>
+		<h1 class=friendsColor>This is: <%=friend.username%></h1>
+		<% 
+		var isFriend = false;
+		for(var i = 0; i < user.friends.length; i++) { 
+			if(user.friends[i].toString() == friend._id.toString()) {
+				isFriend = true;
+			}
+		} 
+		%>
+		<% if(isFriend) { %>
+			<h4>Check out what your friend is up to:</h4>
+			<ul>
 			<% for(var i = 0; i < friendRallies.length; i++) { %>
 				<li><a href="/activity/<%= friendRallies[i]._id%>"><%= friendRallies[i].title%></a></li>
 			<% } %>
-		</ul>
+			</ul>
+			<form id="deleteFriendForm" method="post" action="/user/delete">
+				<input type="hidden" id="yourID" name="yourID" value="<%= user._id%>">
+                <input type="hidden" id="friendID" name="friendID" value="<%= friend._id%>">
+                <button class="btn btn-danger btn-lg" id="deleteFriend">
+                  Un-friend  </i>
+                </button>
+             </form>
+		<% } else { %>
+			Looks like you haven't friended <%=friend.username%>. Would you like to:<BR>
+			<form id="addFriendForm">
+	        	<input type="hidden" id="friendName" value="<%=friend.username%>">
+	        	<button type="button" id="addFriendButton" class="btn btn-primary">Add Friend</button>
+			</form>
+		<% } %>
+		
 	</div>
 </div>

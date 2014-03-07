@@ -11,7 +11,7 @@
 	<h2><small>What is Rally?</small></h2>
 	<p>Use Rally to do things with the people you care about. Playing basketball this afternoon? Post about it on Rally and see how many friends you can Rally!</p>
 
-	<h2><small>Who made Rally?</small></h2>
+	<h2><small>Who made rally?</small></h2>
 	<p>Rally was created by Dylan Moore, Kiana Hui, Kay Christensen, and David Jiang.</p>
 
 	<!-- <img width="275px" src="http://bricknewyork.com/wp-content/uploads/2013/09/party.jpg"/> -->
@@ -122,6 +122,7 @@
 				  </div>
 				</div><!-- End Modal -->
 			</div><!-- End Col -->
+<<<<<<< HEAD
 
 			<div class="col-xs-12">
 				<BR>
@@ -142,10 +143,68 @@
 
 				   	</div><br><br>
 				<% } %> <!--end of for loop-->
+=======
+			<% if(!hasGrid) { %>
+				<div class="col-xs-12">
+					<BR>
+						
+					<% if(allActivities.length == 0) { %>
+						<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
+					<% } %>
+					<div class="all-activities">
+					<% for(var i=0; i<allActivities.length; i++) {%>
+						<div class="activity" data-id="<%= allActivities[i]._id %>">
+					   			<p class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></p>
+					   			
+					   			<button type="button" class="btn btn-success rallyBtn">Rally!</button>
+									<div class="description">
+							Location: <%= allActivities[i].location %><br>
+		                      <%=(new Date(allActivities[i].date)).getMonth()+1+"/"+(new Date(allActivities[i].date)).getDate()+"/"+(new Date(allActivities[i].date)).getFullYear()%>, <%= allActivities[i].time %>
+		                       
+									</div>
+
+					   	</div><br><br>
+					<% } %> <!--end of for loop-->
+					</div>
 				</div>
-			</div>
+			<% } else { %>
+				<div class="col-xs-12">
+					<BR>
+						
+					<% if(allActivities.length == 0) { %>
+						<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
+					<% } %>
+					<div class="all-activities">
+					<% for(var i=0; i<allActivities.length; i++) {%>
+						<div class="activity" data-id="<%= allActivities[i]._id %>" style="margin: 5px; width: 100px; height: 100px; padding: 8px; display: inline-block; vertical-align: top;">
+							
+									<div class="description">
+							   			<p class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></p>
+					   					<button type="button" class="btn btn-success rallyBtn">Rally!</button>
+		                       
+									</div>
+
+
+					   	</div>
+					<% } %> <!--end of for loop-->
+					</div>
+>>>>>>> 053c1a25f740dcfa301e645a466e327a308b3a61
+				</div>
+			<% } %>
 
 		</div><!-- End Row -->
 	</div> <!-- End Container -->
 <% } %>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48564564-1', 'gorally.me');
+  ga('send', 'event', 'rally', 'click');
+  ga('send', 'pageview');
+
+</script>
 

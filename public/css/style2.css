@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Capriola);
+@import url(http://fonts.googleapis.com/css?family=Julius+Sans+One|Text+Me+One);
 
 body {
   padding-top: 60px;
@@ -28,6 +29,8 @@ body {
     white-space:nowrap
 }
 .photoupload {
+	float: right;
+	display: inline;
 }
 
 .log {
@@ -47,7 +50,7 @@ body {
 .titletext {
 	font-size: 60pt;
 	text-align: center;
-	font-family: 'Capriola', sans-serif;
+	font-family: 'Julius Sans One', sans-serif;
 }
 .masked{
 	background: url(/img/paint.png) repeat, white;

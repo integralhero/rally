@@ -61,6 +61,10 @@ $("#forgotPass").click(function(e){
     $("#forgotPassDiv").toggle();
 });
 
+$("#showUpload").click(function(e){
+    $(".photoupload").fadeToggle();
+});
+
 $(document).on("click", "#addUserButton", function(e) { 
         var username = $('#new-user-form #nameField').val();
         var email = $('#new-user-form #emailField').val();

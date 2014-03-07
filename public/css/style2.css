@@ -2,9 +2,14 @@
 
 body {
   padding-top: 60px;
-  background-color: rgba(133, 133, 133, 0.05);
+  /*background-color: rgba(133, 133, 133, 0.05);*/
   padding-bottom: 80px;
+  background-image:url('/images/gplaypattern.png');
+	background-repeat:repeat;
 }
+
+
+
 @media (max-width: 979px) {
   body {
     padding-top: 40px;

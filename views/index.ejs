@@ -123,39 +123,14 @@
 				  </div>
 				</div><!-- End Modal -->
 			</div><!-- End Col -->
-			<% if(!hasGrid) { %>
+			
 				<div class="col-xs-12">
-					<BR>
-						
 					<% if(allActivities.length == 0) { %>
 						<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
 					<% } %>
 					<div class="all-activities">
 					<% for(var i=0; i<allActivities.length; i++) {%>
 						<div class="activity" data-id="<%= allActivities[i]._id %>">
-					   			<p class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></p>
-					   			
-					   			<button type="button" class="btn btn-success rallyBtn">Rally!</button>
-									<div class="description">
-							Location: <%= allActivities[i].location %><br>
-		                      <%=(new Date(allActivities[i].date)).getMonth()+1+"/"+(new Date(allActivities[i].date)).getDate()+"/"+(new Date(allActivities[i].date)).getFullYear()%>, <%= allActivities[i].time %>
-		                       
-									</div>
-
-					   	</div><br><br>
-					<% } %> <!--end of for loop-->
-					</div>
-				</div>
-			<% } else { %>
-				<div class="col-xs-12">
-					<BR>
-						
-					<% if(allActivities.length == 0) { %>
-						<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
-					<% } %>
-					<div class="all-activities">
-					<% for(var i=0; i<allActivities.length; i++) {%>
-						<div class="activity" data-id="<%= allActivities[i]._id %>" style="margin: 5px; width: 100px; height: 100px; padding: 8px; display: inline-block; vertical-align: top;">
 							
 									<div class="description">
 							   			<p class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></p>
@@ -168,7 +143,6 @@
 					<% } %> <!--end of for loop-->
 					</div>
 				</div>
-			<% } %>
 
 		</div><!-- End Row -->
 	</div> <!-- End Container -->

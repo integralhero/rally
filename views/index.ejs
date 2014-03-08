@@ -1,6 +1,5 @@
 <% if (!user) { %>
 <% layout('notloggedlayout1') -%>
-
 	<div class="masked">
 		<h1 class="titletext">Rally </i></h1>
 	</div>
@@ -123,26 +122,27 @@
 				  </div>
 				</div><!-- End Modal -->
 			</div><!-- End Col -->
-			
-				<div class="col-xs-12">
-					<% if(allActivities.length == 0) { %>
-						<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
-					<% } %>
-					<div class="all-activities">
-					<% for(var i=0; i<allActivities.length; i++) {%>
-						<div class="activity" data-id="<%= allActivities[i]._id %>">
-							
-									<div class="description">
-							   			<p class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></p>
-					   					<button type="button" class="btn btn-success rallyBtn">Rally!</button>
-		                       
-									</div>
 
+			<div class="col-xs-12">
+				<BR>
+				<% if(allActivities.length == 0) { %>
+					<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
+				<% } %>
+				<div class="all-activities">
+				<% for(var i=0; i<allActivities.length; i++) {%>
+					<div class="activity" data-id="<%= allActivities[i]._id %>">
+				   			<h3 class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></h3>
+				   			
+				   			<button type="button" class="btn btn-success rallyBtn">Rally!</button>
+   							<div class="description">
+						Location: <%= allActivities[i].location %><br>
+                          <%=(new Date(allActivities[i].date)).getMonth()+1+"/"+(new Date(allActivities[i].date)).getDate()+"/"+(new Date(allActivities[i].date)).getFullYear()%>, <%= allActivities[i].time %>
+                           
+   							</div>
 
-					   	</div>
-					<% } %> <!--end of for loop-->
-					</div>
-				</div>
+				   	</div><br><br>
+				<% } %> <!--end of for loop-->
+			</div>
 
 		</div><!-- End Row -->
 	</div> <!-- End Container -->

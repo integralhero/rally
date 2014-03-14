@@ -5,7 +5,7 @@
   <p><div class='alert alert-success'> <%= success%></div></p>
   <% } %>
 
-<a id="showUpload" href="#"><img width="75px" height=auto style= "float: left " src="<%= user.imageURL %>" alt="profpic" class="img-rounded"></a>
+<a id="showUpload" href="#"><img width="100px" height=auto style= "float: left " src="<%= user.imageURL %>" alt="profpic" class="img-circle"></a>
 
 <div class="photoupload" style="display:none;">
   <form method="post" enctype="multipart/form-data" action="/file-upload">
@@ -23,7 +23,7 @@
 <% } %>
 <div id="friended">
 <% for(var j = 0; j < friendsArr.length; j++) {%>
-  <li style="display: inline-block;"><a href="/user/<%= friendsArr[j]._id %>"><img class="img-circle" width="100px" height="100px" src="<%= friendsArr[j].imageURL %>"></a>
+  <li style="display: inline-block;"><a href="/user/<%= friendsArr[j]._id %>"><img class="img-circle" width="75px" height="75px" src="<%= friendsArr[j].imageURL %>"></a>
                       <center><%= friendsArr[j].username %></center>
   </li>
 <% } %>

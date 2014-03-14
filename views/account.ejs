@@ -5,8 +5,8 @@
   <p><div class='alert alert-success'> <%= success%></div></p>
   <% } %>
 
-<a id="showUpload" href="#"><img width="100px" height=auto style= "float: left " src="<%= user.imageURL %>" alt="profpic" class="img-circle"></a>
-
+<div class="padding"><a id="showUpload" href="#"><img width="75px" height=auto style= "float: left "  src="<%= user.imageURL %>" alt="profpic" class="img-circle "></a></div>
+<div class="topaccount">
 <div class="photoupload" style="display:none;">
   <form method="post" enctype="multipart/form-data" action="/file-upload">
       <input type="file" name="profPic">
@@ -14,51 +14,48 @@
   </form>
 </div>
 <BR>
-<BR>
-<div>
-<h1 style=""><%= user.username %></h1>
-<h3> People who have friended you: </h3>
+
+
+<h1 style="color: white;" class="padding"><%= user.username %></h1>
+</div> <!-- End top account -->
+
+
+<h2 class="padding"> <small>People who have friended you: </small></h3>
 <% if(friendsArr.length == 0) {%>
  Looks like nobody is following you...
 <% } %>
 <div id="friended">
 <% for(var j = 0; j < friendsArr.length; j++) {%>
-  <li style="display: inline-block;"><a href="/user/<%= friendsArr[j]._id %>"><img class="img-circle" width="75px" height="75px" src="<%= friendsArr[j].imageURL %>"></a>
+<div style="width: 100%; background: rgba(255, 255, 255, .50);">
+  <li style="display: inline-block;" class="padding"><a href="/user/<%= friendsArr[j]._id %>"><img class="img-circle" width="60px" height="60px" src="<%= friendsArr[j].imageURL %>"></a>
                       <center><%= friendsArr[j].username %></center>
   </li>
 <% } %>
 </div>
-<BR>
-<h3> Rallies you've created: </h3>
-<section>
+</div>
+<h2 class="padding"><small> Rallies you've created:</small></h3>
 <% for(var i=0; i<userRallies.length; i++) {%>
-	<div class="activityProf">
+	<div class="activity">
    			<h3 class="activityColor"><a href="/activity/<%= userRallies[i]._id%>"><%= userRallies[i].title %></a></h3>			
-            <div class="description">
-                   <p><%= userRallies[i].location %><br>
+               <p><%= userRallies[i].location %><br>
                   <%=(new Date(userRallies[i].date)).getMonth()+1+"/"+(new Date(userRallies[i].date)).getDate()+"/"+(new Date(userRallies[i].date)).getFullYear()%>, <%= userRallies[i].time %><br>
-                  </p>
+                </p>
          </div>
-   	</div><br><br>
 <% } %> 
-<BR>
-<h3> Rallies you've joined: </h3>
-<section>
+
+<h2 class="padding"> <small>Rallies you've joined: </small></h3>
 <% for(var i=0; i<joined.length; i++) {%>
-	<div class="activityProf">
+	<div class="activity">
    			<h3 class=activityColor><a href="/activity/<%= joined[i]._id%>"><%= joined[i].title %></a>
         <form>
           <input type="hidden" value="<%= joined[i]._id%>" name="rally_id" id="rally_id_hidden">
           <button type="button" id="unrallyButton" class="btn unrallybtn btn-danger">Unrally</button></h3>
         </form>
-   			<div class="description">
-                           <p><%= joined[i].location %><br>
-                          <%=(new Date(joined[i].date)).getMonth()+1+"/"+(new Date(joined[i].date)).getDate()+"/"+(new Date(joined[i].date)).getFullYear()%>, <%= joined[i].time %><br>
-                           </p>
-   		</div>
-   	</div><br><br>
+              <p><%= joined[i].location %><br>
+                <%=(new Date(joined[i].date)).getMonth()+1+"/"+(new Date(joined[i].date)).getDate()+"/"+(new Date(joined[i].date)).getFullYear()%>, <%= joined[i].time %><br>
+              </p>
+   	</div>
 <% } %> 
-</section>
 </div>
 
 

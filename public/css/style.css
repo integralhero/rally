@@ -1,14 +1,25 @@
-@import url(http://fonts.googleapis.com/css?family=Capriola);
-
 body {
   padding-top: 60px;
-  background-color: rgba(133, 133, 133, 0.05);
+  background-image:url("/img/cross_scratches.png");
+  background-repeat:repeat;
   padding-bottom: 80px;
 }
 @media (max-width: 979px) {
   body {
     padding-top: 40px;
   }
+}
+
+.specificAccount {
+	padding-top: 20px; 
+	margin-top: -10px;
+	float: right;
+}
+
+.topaccount {
+	background-color: #1abc9c;
+	margin-top: -10px;
+	padding-bottom: 10px;
 }
 
 
@@ -45,6 +56,10 @@ h1.titletext {
 	font-size: 60pt;
 	text-align: center;
 	font-family: 'Lemon';
+}
+
+h3 a {
+	color: #1abc9c;
 }
 
 .title {
@@ -143,27 +158,19 @@ h1.titletext {
     color: #8e44ad;
 }
 
-
+.padding {
+	padding-left: 20px;
+}
 
 .activity {
 	width: 100% !important;
 	border-radius: 2px;
-	background-color: white;
+	background: rgba(255, 255, 255, .50);
 	text-align: left;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
-.all-activities {
-	padding-bottom: 60px;
-}
-
-
-.description {
-	width: 100% !important;
-	float:left;
-	position: absolute;
-	text-align: left;
-	font-weight: lighter;
-}
 
 .friendSmall {
 	width: 75px;

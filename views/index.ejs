@@ -55,13 +55,11 @@
 <% } else { %>
 <% layout('layout') -%>
 	<div class="center">
-		<h2>Hey, <%= user.username %>!</h2>
-		<div id="hiddenNotice"></div>
-		<% if (success.length > 0) { %>
+			<% if (success.length > 0) { %>
 		<p><div class='alert alert-success'> <%= success%></div></p>
 		<% } %>
-		<div class="row">
-			<div class="col-xs-12">
+		<h2>Hey, <%= user.username %>!</h2>
+		<div id="hiddenNotice"></div>
 				<!-- Button trigger modal -->
 
 				<button class="btn btn-primary btn-lg activityBackgroundColor" data-toggle="modal" data-target="#myModal">
@@ -121,29 +119,22 @@
 				    </div>
 				  </div>
 				</div><!-- End Modal -->
-			</div><!-- End Col -->
 
-			<div class="col-xs-12">
-				<BR>
 				<% if(allActivities.length == 0) { %>
+					<div class="container">
+					<br>
 					<p>It looks like you aren't following any activities. You should add some friends and rally with them!</p>
+					</div>
 				<% } %>
-				<div class="all-activities">
 				<% for(var i=0; i<allActivities.length; i++) {%>
 					<div class="activity" data-id="<%= allActivities[i]._id %>">
 				   			<h3 class="activityColor"><a href="/activity/<%= allActivities[i]._id %>"><%= allActivities[i].title %></a></h3>
 				   			
 				   			<button type="button" class="btn btn-success rallyBtn">Rally!</button>
-   							<div class="description">
 						Location: <%= allActivities[i].location %><br>
                           <%=(new Date(allActivities[i].date)).getMonth()+1+"/"+(new Date(allActivities[i].date)).getDate()+"/"+(new Date(allActivities[i].date)).getFullYear()%>, <%= allActivities[i].time %>
-                           
-   							</div>
-
-				   	</div><br><br>
+					</div>
 				<% } %> <!--end of for loop-->
-			</div>
-
 		</div><!-- End Row -->
 	</div> <!-- End Container -->
 <% } %>

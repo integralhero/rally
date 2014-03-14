@@ -35,11 +35,11 @@
 <body>
 
 	  <nav class="navbar-fixed-top brand">
-	  	<p><a href="/" style="text-decoration: none; color: black"><i class="fa fa-map-marker"></i> <span class="title">Rally</span></a>
+	  	<p><a href="/" style="text-decoration: none;"><span class="title masked">Rally</span></a>
 	  	<% if (!user) { %>
 	  	<a href="/login" class="log">Log In</a>
 	  	<% } else { %>
-	  	<a href="/logout" class="log">Log Out</a>
+	  	<a href="/logout" class="log" style="color: gray;">Log Out</a>
 	  	<% } %>
 	  </p>
 
@@ -54,11 +54,8 @@
 </div>
 </nav>
 
+<%- body %>
 
-
-<div class="container imgBackground">
-	<%- body %>
-</div>
 
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>

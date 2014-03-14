@@ -1,15 +1,13 @@
 <% layout('layout') -%>
-<div class="col-xs-12">
 	<% if (message.length > 0) { %>
 	<p><div class='alert alert-danger'> <%= message%></div></p>
 	<% } %>
 	<% if (success.length > 0) { %>
 	<p><div class='alert alert-success'> <%= success%></div></p>
 	<% } %>
-	<h1>Your Friends!</h1>
-					<button class="btn btn-success btn-lg friendsBackgroundColor" data-toggle="modal" data-target="#friendModal">
-				  Add a Friend  <i class="fa fa-plus fa-1x" ></i>
-				</button>
+	<div class="friendsBackgroundColor" style="padding-top: 20px; margin-top: -10px">
+	<h1 class="padding" style="color:white">Your Friends! <button class="btn btn-success btn-lg" style="background-color:white; color: #e74c3c; margin-bottom: 10px" data-toggle="modal" data-target="#friendModal"> Friend  <i class="fa fa-plus fa-1x" ></i></h1>
+				</button></div>
 
 				<!-- Modal -->
 				<div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -32,14 +30,8 @@
 				    </div>
 				  </div>
 				</div><!-- End Modal -->
-	<br>
-	<BR>
-	<div class="all-activities">
-	<BR>
+	<div class="activity" style="margin-top: -20px">
 	<% for (var i = 0; i<userFriends.length; i++) { %>
-		<div class="activity friendsColor">
-			<h3><a href="/user/<%= userFriends[i]._id%>"><%=userFriends[i].username%></a></h3>
-		</div>	
+			<h3><img class="img-circle" width="60px" height="60px" src="<%= userFriends[i].imageURL %>"><a href="/user/<%= userFriends[i]._id%>">     <%=userFriends[i].username%></a> </h3>
 	<% } %>
 </div>
-
